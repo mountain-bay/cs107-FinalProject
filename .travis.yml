@@ -1,0 +1,3 @@
+language: python3
+# Dependencies in an installation script
+install: ./dependencies.sh
