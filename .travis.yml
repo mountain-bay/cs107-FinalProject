@@ -1,6 +1,4 @@
 language: python
-python: 
-    -"3.6"
 # Following from TravisCI Tutorial
 # command to install dependencies
 install:
