@@ -6,3 +6,5 @@ Group 13's CS107 final project
 - Ninon Becquart
 - Zachary Ellison
 - Kaiwen Li
+
+## Coverage and Tests!
