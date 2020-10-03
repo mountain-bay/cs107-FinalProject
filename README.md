@@ -8,4 +8,5 @@ Group 13's CS107 final project
 - Kaiwen Li
 
 ## Coverage and Tests! 
- - Zach-M1b Branch[![Build Status](https://travis-ci.com/mountain-bay/cs107-FinalProject.svg?token=KvF9vGPRmMyHwtXxqRfN&branch=Zach-M1b)](https://travis-ci.com/mountain-bay/cs107-FinalProject)
+ - Zach-M1b Branch
+    - [![Build Status](https://travis-ci.com/mountain-bay/cs107-FinalProject.svg?token=KvF9vGPRmMyHwtXxqRfN&branch=Zach-M1b)](https://travis-ci.com/mountain-bay/cs107-FinalProject)
