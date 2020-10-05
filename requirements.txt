@@ -1,0 +1,6 @@
+# Versioned Reqs
+numpy==1.18.2
+pytest==6.1.1
+pytest-cov==2.10.1
+
+# Unversioned Reqs

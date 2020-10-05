@@ -1,0 +1,18 @@
+language: python
+# Following from TravisCI Tutorial
+# command to install dependencies
+install:
+    - pip install -r requirements.txt
+# command to run tests
+script:
+    - pytest --cov-report xml:tests/coverage/coverage.xml --cov=./
+
+
+# Notifications!
+notifications:
+    slack: cs-107:huzR3s6ZnWLUnJIiLpknT7WI
+# Codecov report script
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
+env:
+    - CODECOV_TOKEN="2d4c6faf-00e7-4465-a143-812937494c78"
