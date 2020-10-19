@@ -5,7 +5,7 @@
 - [Project Organization](#organization)
 - [Implementation](#implementation)
 
-## Introduction
+## Introduction - Nicole
 _what the problem solves and why it's important_
 ### Motivation
 There are presently only two common methods for computing derivatives
@@ -19,13 +19,13 @@ There are presently only two common methods for computing derivatives
 
 Automatic Differentiation, finding roots, is crucial to optimization and can be applied in many fields including machine learning, computer vision, and AI
 
-## Background
+## Background - Zach
 <!-- TODO -->
 
-## How To Use the Package
+## How To Use the Package - Kaiwen
 <!-- TODO -->
 
-## Organization
+## Organization - Ninon
 
     What will the directory structure look like?
         - MountainBay/
@@ -61,7 +61,7 @@ Automatic Differentiation, finding roots, is crucial to optimization and can be 
         We are considering other frameworks in the future
     Other considerations?
 
-## Implementation
+## Implementation - Everyone
 How we're gonna make it
 what data structures
     matrices and vectors
@@ -72,3 +72,4 @@ external dependencies
     - Pandas
         - easy to use interface
         - fast data structures
+
