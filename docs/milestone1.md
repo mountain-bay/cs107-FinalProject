@@ -36,7 +36,7 @@ Automatic Differentiation, finding roots, is crucial to optimization and can be 
             - chain/
                 - __init__.py
                 - python.py
-            - foward/
+            - forward/
                 - __init__.py
                 - python.py
             - reverse/
@@ -52,13 +52,13 @@ Automatic Differentiation, finding roots, is crucial to optimization and can be 
         - forward
         - extra module
     Where will your test suite live? Will you use TravisCI? CodeCov?
-        We might as well keep them because they are integrated
+        Since we have already integrated TravisCI and CodeCov, our test suite will live there.
     How will you distribute your package (e.g. PyPI)?
-        PyPI is a perfect platform to distribute our package because it is widely available, and well documented (I imagine)
+        This package will be distributed on PyPI, which allows users to upload packages.
     How will you package your software? 
-        pip-wheels
+        We will use wheel and setuptools in order to generate distribution packages for our package. 
     Will you use a framework? If so, which one and why? If not, why not?
-        We are considering other frameworks in the future
+        
     Other considerations?
 
 ## Implementation - Everyone
