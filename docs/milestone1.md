@@ -47,10 +47,11 @@ Automatic Differentiation, finding roots, is crucial to optimization and can be 
                 - python.py
 
     What modules do you plan on including? What is their basic functionality?
-        - jacobian
-        - chain
-        - forward
-        - extra module
+        - Jacobian
+        - Chain Rule
+        - Forward
+        - Reverse
+        - Mixed
     Where will your test suite live? Will you use TravisCI? CodeCov?
         Since we have already integrated TravisCI and CodeCov, our test suite will live there.
     How will you distribute your package (e.g. PyPI)?
@@ -58,9 +59,8 @@ Automatic Differentiation, finding roots, is crucial to optimization and can be 
     How will you package your software? 
         We will use wheel and setuptools in order to generate distribution packages for our package. 
     Will you use a framework? If so, which one and why? If not, why not?
+        We will be using PyScaffold, because it sets up a folder system for us and incorporates Sphinx, which builds documentation.
         
-    Other considerations?
-
 ## Implementation
 Core data structures:
     The core data structures we anticipate using are matrices (ex. Jacobian), vectors (ex. seed vector), lists, tuples, and/or dictionaries for storing information.
