@@ -61,15 +61,19 @@ Automatic Differentiation, finding roots, is crucial to optimization and can be 
         
     Other considerations?
 
-## Implementation - Everyone
-How we're gonna make it
-what data structures
-    matrices and vectors
-what classes
-external dependencies
-    - Numpy
-        - mathematical POWER
-    - Pandas
-        - easy to use interface
-        - fast data structures
+## Implementation
+Core data structures:
+    The core data structures we anticipate using are matrices (ex. Jacobian), vectors (ex. seed vector), lists, tuples, and/or dictionaries for storing information.
+
+What classes will you implement?
+    We will be implementing a class that takes in a derivative and a value as input, and outputs an object for every calculation.
+
+What method and name attributes will your classes have?
+    The class that takes in the derivative and value will have a variety of methods which would conduct basic calculations.
+
+What external dependencies will you rely on?
+    We will be using numpy because of its mathematical capabilities and pandas, since it has an easy to use interface and fast data structures..
+    
+How will you deal with elementary functions like sin, sqrt, log, and exp (and all the others)?
+
 
