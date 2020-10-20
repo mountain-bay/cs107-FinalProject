@@ -58,7 +58,7 @@ The primary AD object will be `autodiff.grad`, as that serves as the backbone of
             - chain/
                 - __init__.py
                 - python.py
-            - foward/
+            - forward/
                 - __init__.py
                 - python.py
             - reverse/
@@ -69,29 +69,33 @@ The primary AD object will be `autodiff.grad`, as that serves as the backbone of
                 - python.py
 
     What modules do you plan on including? What is their basic functionality?
-        - jacobian
-        - chain
-        - forward
-        - extra module
+        - Jacobian
+        - Chain Rule
+        - Forward
+        - Reverse
+        - Mixed
     Where will your test suite live? Will you use TravisCI? CodeCov?
-        We might as well keep them because they are integrated
+        Since we have already integrated TravisCI and CodeCov, our test suite will live there.
     How will you distribute your package (e.g. PyPI)?
-        PyPI is a perfect platform to distribute our package because it is widely available, and well documented (I imagine)
+        This package will be distributed on PyPI, which allows users to upload packages.
     How will you package your software? 
-        pip-wheels
+        We will use wheel and setuptools in order to generate distribution packages for our package. 
     Will you use a framework? If so, which one and why? If not, why not?
-        We are considering other frameworks in the future
-    Other considerations?
+        We will be using PyScaffold, because it sets up a folder system for us and incorporates Sphinx, which builds documentation.
+        
+## Implementation
+Core data structures:
+    The core data structures we anticipate using are matrices (ex. Jacobian), vectors (ex. seed vector), lists, tuples, and/or dictionaries for storing information.
 
-## Implementation - Everyone
-How we're gonna make it
-what data structures
-    matrices and vectors
-what classes
-external dependencies
-    - Numpy
-        - mathematical POWER
-    - Pandas
-        - easy to use interface
-        - fast data structures
+What classes will you implement?
+    We will be implementing a class that takes in a derivative and a value as input, and outputs an object for every calculation.
+
+What method and name attributes will your classes have?
+    The class that takes in the derivative and value will have a variety of methods which would conduct basic calculations.
+
+What external dependencies will you rely on?
+    We will be using numpy because of its mathematical capabilities and pandas, since it has an easy to use interface and fast data structures..
+    
+How will you deal with elementary functions like sin, sqrt, log, and exp (and all the others)?
+
 
