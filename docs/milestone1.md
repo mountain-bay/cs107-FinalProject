@@ -22,8 +22,30 @@ Automatic Differentiation, finding roots, is crucial to optimization and can be 
 ## Background - Zach
 <!-- TODO -->
 
-## How To Use the Package - Kaiwen
-<!-- TODO -->
+## Usage instructions
+Install package from PyPI:
+
+`pip3 install <autodiff> # Package name to be decided on`
+
+Once installed, you can instantiate functions used in the differentiation process.
+
+This might look something along the lines of:
+
+```
+import autodiff as ad # Package name to be decided on
+import numpy as np    # Base our variables on numpy
+
+def f(x):             # Define a function
+    y = np.pow(x, 2)  # y = x^2
+    return y
+
+f_prime = ad.grad(f)  # Calculate gradient function
+print(f_prime(1))     # Calculate gradient at x = 1
+```
+
+Output of above code segment would be `2` (f'(x) = 2x and f'(1) = 2). 
+
+The primary AD object will be `autodiff.grad`, as that serves as the backbone of autodifferentiation. More objects may be added as we have a clearer idea of implementation details (e.g. specifying forward v. reverse modes, returning Jacobians, etc).
 
 ## Organization - Ninon
 
