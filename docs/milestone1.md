@@ -5,7 +5,7 @@
 - [Project Organization](#organization)
 - [Implementation](#implementation)
 
-## Introduction - Nicole
+## Introduction 
 _what the problem solves and why it's important_
 ### Motivation
 There are presently only two common methods for computing derivatives
@@ -111,7 +111,7 @@ Output of above code segment would be `2` (f'(x) = 2x and f'(1) = 2).
 
 The primary AD object will be `autodiff.grad`, as that serves as the backbone of autodifferentiation. More objects may be added as we have a clearer idea of implementation details (e.g. specifying forward v. reverse modes, returning Jacobians, etc).
 
-## Organization - Ninon
+## Organization 
 
     What will the directory structure look like?
     
