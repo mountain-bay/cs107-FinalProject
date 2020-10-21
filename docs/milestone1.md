@@ -52,10 +52,13 @@ The primary AD object will be `autodiff.grad`, as that serves as the backbone of
     What will the directory structure look like?
         - MountainBay/
             - __init__.py
-            - jacobian/
+            - AD_Object/
                 - __init__.py
                 - python.py
-            - chain/
+           - AD_BasicMath/
+                - __init__.py
+                - python.py
+            - jacobian/
                 - __init__.py
                 - python.py
             - forward/
@@ -69,11 +72,11 @@ The primary AD object will be `autodiff.grad`, as that serves as the backbone of
                 - python.py
 
     What modules do you plan on including? What is their basic functionality?
-        - Jacobian
-        - Chain Rule
-        - Forward
-        - Reverse
-        - Mixed
+        - AD_Object
+            This will instantiate an Automatic Differentiation Object to be used in a forward or reverse mode, using the function and value given as input. It will contain methods that would calculate the Jacobian matrix, as well as AD in forward and reverse mode.
+        -AD_BasicMath
+            This module will contain basic operations, such as addition, substraction, and multiplication to be used on an AD object. It will also contain exponential and trig functions such as sin, cos, tan.
+        
     Where will your test suite live? Will you use TravisCI? CodeCov?
         Since we have already integrated TravisCI and CodeCov, our test suite will live there.
     How will you distribute your package (e.g. PyPI)?
@@ -85,15 +88,29 @@ The primary AD object will be `autodiff.grad`, as that serves as the backbone of
         
 ## Implementation
 Core data structures:
+
     The core data structures we anticipate using are matrices (ex. Jacobian), vectors (ex. seed vector), lists, tuples, and/or dictionaries for storing information.
 
 What classes will you implement?
+
     We will be implementing a class that takes in a derivative and a value as input, and outputs an object for every calculation.
+    We will also be implementing a class containing basic arithmetic operations.
 
 What method and name attributes will your classes have?
-    The class that takes in the derivative and value will have a variety of methods which would conduct basic calculations.
+
+    The class that takes in the derivative and value (AD_Object) will have a variety of methods which would conduct basic calculations, as well as the following: 
+             - Jacobian
+            This will calculate the Jacobian matrix for the given AD Object.
+            - Forward
+            This will calculate AD in forward mode.
+            - Reverse
+            This will calculate AD in reverse mode.
+            - Mixed
+            This will calculate AD in mixed mode.
+    The class that contains basic arithmetic operations (AD_BasicMath) would contain methods to sum, subtract, multiply, divide, exponential, and trig functions as well.
 
 What external dependencies will you rely on?
+
     We will be using numpy because of its mathematical capabilities and pandas, since it has an easy to use interface and fast data structures..
     
 How will you deal with elementary functions like sin, sqrt, log, and exp (and all the others)?
