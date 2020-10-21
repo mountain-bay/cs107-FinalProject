@@ -114,6 +114,7 @@ The primary AD object will be `autodiff.grad`, as that serves as the backbone of
 ## Organization - Ninon
 
     What will the directory structure look like?
+    
         - MountainBay/
             - __init__.py
             - AD_Object/
@@ -136,18 +137,23 @@ The primary AD object will be `autodiff.grad`, as that serves as the backbone of
                 - python.py
 
     What modules do you plan on including? What is their basic functionality?
+    
         - AD_Object
             This will instantiate an Automatic Differentiation Object to be used in a forward or reverse mode, using the function and value given as input. It will contain methods that would calculate the Jacobian matrix, as well as AD in forward and reverse mode.
         -AD_BasicMath
             This module will contain basic operations, such as addition, substraction, and multiplication to be used on an AD object. It will also contain exponential and trig functions such as sin, cos, tan.
         
     Where will your test suite live? Will you use TravisCI? CodeCov?
+    
         Since we have already integrated TravisCI and CodeCov, our test suite will live there.
     How will you distribute your package (e.g. PyPI)?
+    
         This package will be distributed on PyPI, which allows users to upload packages.
     How will you package your software? 
+    
         We will use wheel and setuptools in order to generate distribution packages for our package. 
     Will you use a framework? If so, which one and why? If not, why not?
+    
         We will be using PyScaffold, because it sets up a folder system for us and incorporates Sphinx, which builds documentation.
         
 ## Implementation
@@ -179,4 +185,4 @@ What external dependencies will you rely on?
     
 How will you deal with elementary functions like sin, sqrt, log, and exp (and all the others)?
 
-
+    These elementary functions will be contained within their own module, AD_BasicMath.
