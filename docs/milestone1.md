@@ -177,3 +177,6 @@ What external dependencies will you rely on?
 How will you deal with elementary functions like sin, sqrt, log, and exp (and all the others)?
 
     These elementary functions will be contained within their own module, AD_BasicMath.
+    
+## Feedback
+The TFs noted that the Organization section needed several amendments, one of them being the overall format. Therefore, we changed the format from question and answer to essay format. Next, TFs noted several key details were missing, such as whether we would include our own tests, and where tests, documentation, and examples would be saved. Thus, directory structure was updated to illustrate where these items would be stored, and also to reflect the entire PyScaffold folder setup. Lastly, TFs noted that a more thorough explanation of how the package would be distributed was needed. Thus, we outlined the steps we believe we would take in order to accomplish this task.
