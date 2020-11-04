@@ -113,8 +113,11 @@ The primary AD object will be `autodiff.grad`, as that serves as the backbone of
 
 ## Organization 
 The directory structure for our project is as follows, illustrated in tree format. Note that our modules are stored within src/ad-project/ folder. We also anticipate storing documentation, examples,  and our test suite in the appropriate folders, indicated by their names. Other than that, there are also the standard files we see in this type of repository: a README file, a license file, and a requirements file.
+The structure: 
 
+`
 MountainBay/
+
     -AUTHORS.rst
     -CHANGELOG.rst
     -docs/
@@ -146,7 +149,8 @@ MountainBay/
     -tests/
         -conftest.py
         -test_skeleton.py
-		
+	`	
+	
     We plan on creating two modules, AD_Object and AD_BasicMath.  Our first module will be called AD_Object. This will instantiate an Automatic Differentiation (AD) Object to be used in a forward or reverse mode, using the function and value given as input. It will contain methods that would calculate the Jacobian matrix, as well as AD in forward and reverse mode. The second module will be AD_BasicMath. This module will contain basic operations, such as addition, subtraction, and multiplication to be used on an AD object. It will also contain exponential and trig functions such as sin, cos, tan. The module will thus take an AD_Object as input, and output the results of elementary operations desired.
     We will be using the framework PyScaffold, because it sets up a folder system for us and incorporates Sphinx, which builds documentation. Examples will be included as well. Both documentation and examples will be stored in the directory. The directory structure set up by PyScaffold is illustrated above, with our own modules for AD_Object and AD_BasicMath included. The test suite will live within the ‘tests’ folder PyScaffold automatically created for us. We will be developing our own tests as needed. In addition, we will use TravisCI and CodeCov, which we already integrated. 
     This package will be distributed on PyPI, which allows users to upload packages. First, we will wrap our code into distribution packages using wheel and setuptools. We will test our package in order to ensure that all the necessary packages and files are included; Twine will be used in order to also assure that our package description will render accurately on PyPI. We will upload to TestPyPI to check if everything is functioning properly, and if so, we will then upload our package to PyPI using Twine.
