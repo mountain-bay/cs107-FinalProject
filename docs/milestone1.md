@@ -114,7 +114,7 @@ The primary AD object will be `autodiff.grad`, as that serves as the backbone of
 ## Organization 
 The directory structure for our project is as follows, illustrated in tree format. Note that our modules are stored within src/ad-project/ folder. We also anticipate storing documentation, examples,  and our test suite in the appropriate folders, indicated by their names. Other than that, there are also the standard files we see in this type of repository: a README file, a license file, and a requirements file.
 
-- MountainBay/
+MountainBay/
     -AUTHORS.rst
     -CHANGELOG.rst
     -docs/
