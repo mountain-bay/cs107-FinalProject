@@ -20,5 +20,5 @@ For Milestone 2, we are splitting up into pairs to work on each module. The pair
 ## What each group member has done since submission of Milestone 1
  - Zach:
    - Pyscaffold implementation 
- -Ninon:
+ - Ninon:
    -I made changes to the Organization section by altering the directory structure and editing the original writing so that it was in paragraph form as requested. I also added more detailed explanations for how we would distribute the package. Finally, I added the Feedback section indicating the comments made by the Teaching Fellows and what I did to address those comments.
