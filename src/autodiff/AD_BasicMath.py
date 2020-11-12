@@ -1,5 +1,5 @@
 
-from AD_Object import Var
+from src.autodiff.AD_Object import Var
 import numpy as np
 
 # Returning a new Var for each elementary function
@@ -7,44 +7,44 @@ import numpy as np
 # trig functions (sine, cosine, tangent)
 
 def exp(x):
-    pass
+    raise NotImplementedError
 
 def log(x):
-    pass
+    raise NotImplementedError
 
 def ln(x):
-    pass
+    raise NotImplementedError
 
 def sqrt(x):
-    pass
+    raise NotImplementedError
 
 def sin(x):
-    newX = Var(np.sin(x.val), np.cos(x.val)*x.der)
+    newX = Var(np.sin(x.val), derivative=np.cos(x.val)*x.der)
     # check our notation for instantiating a variable -- just AD_Object(value, derivative_seed_value)?
     return newX
 
 def cos(x):
-    newX = Var(np.cos(x.val), -np.sin(x.val)*x.der)
+    newX = Var(np.cos(x.val), derivative=-np.sin(x.val)*x.der)
     return newX
 
 def tan(x):
-    newX = Var(np.tan(x.val), (1/np.cos(x.val)**2)*x.der)
+    newX = Var(np.tan(x.val), derivative=(1/np.cos(x.val)**2)*x.der)
     return newX
 
 def csc(x):
-    pass
+    raise NotImplementedError
 
 def sec(x):
-    pass
+    raise NotImplementedError
 
 def cot(x):
-    pass
+    raise NotImplementedError
 
 def arcsin(x):
-    pass
+    raise NotImplementedError
 
 def arccos(x):
-    pass
+    raise NotImplementedError
 
 def arctan(x):
-    pass
+    raise NotImplementedError
