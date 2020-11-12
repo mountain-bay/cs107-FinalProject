@@ -31,8 +31,6 @@ For Milestone 2, we are splitting up into pairs to work on each module. The pair
    - Began BasicMath implementation
      - Adjusted Trig implementations from Nicole
      - Tested Trig implementations from Nicole
-     - Documented trig implementations 
-       - ran `docs/conf.py` to update docs
  - Ninon:
    - I made changes to the Organization section by altering the directory structure and editing the original writing so that it was in paragraph form as requested. 
    - I also added more detailed explanations for how we would distribute the package. 
