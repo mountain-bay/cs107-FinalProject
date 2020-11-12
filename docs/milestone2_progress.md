@@ -15,13 +15,30 @@ For Milestone 2, we are splitting up into pairs to work on each module. The pair
    - Each person writes while developing.
  - Testing
    - Using test driven development in our pairs, we will share our test writing duties.
- -Future Features
+ - Future Features
+   - Shared task
 
 ## What each group member has done since submission of Milestone 1
  - Zach:
-   - Pyscaffold implementation 
+   - added Graph to Math Background for clarity since M1 feedback
+   - Pyscaffold implementation
+     - New directory structure and files skeleton 
+     - Versioning updates
+   - Began AD_Object Implementation
+     - boilerplate object with NotImplemented operation overloads
+     - Began implementing attributes (val and der) for testing
+     - Basic Tests written
+   - Began BasicMath implementation
+     - Adjusted Trig implementations from Nicole
+     - Tested Trig implementations from Nicole
+     - Documented trig implementations 
+       - ran `docs/conf.py` to update docs
  - Ninon:
-   -I made changes to the Organization section by altering the directory structure and editing the original writing so that it was in paragraph form as requested. I also added more detailed explanations for how we would distribute the package. Finally, I added the Feedback section indicating the comments made by the Teaching Fellows and what I did to address those comments.
+   - I made changes to the Organization section by altering the directory structure and editing the original writing so that it was in paragraph form as requested. 
+   - I also added more detailed explanations for how we would distribute the package. 
+   - Finally, I added the Feedback section indicating the comments made by the Teaching Fellows and what I did to address those comments.
 - Nicole:
-  - Began working on BasicMath object. Boilerplate code for functions trig and special functions to fill in. Implemented sin, cos, tan.
+  - Began working on BasicMath object. 
+    - Boilerplate code for functions trig and special functions to fill in. 
+    - Implemented sin, cos, tan.
   
