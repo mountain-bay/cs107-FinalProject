@@ -4,7 +4,13 @@ class Var:
     TODO: docs
     """
     def __init__(self, val, **kwargs):
-        raise NotImplementedError
+        self.val = val
+        if 'derivative' in kwargs:
+            self.der = kwargs['derivative']
+        else:
+            self.der = 1
+        self.args = kwargs
+        
 
     def __add__(self, other):
         raise NotImplementedError
