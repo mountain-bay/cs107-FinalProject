@@ -18,3 +18,6 @@ def test_y_Var_init():
     assert y.val == 1, AssertionError('Var init w/o der val fail')
     assert y.der == 1, AssertionError('Var init w/o derivative der fail')
     assert isinstance(y.args, dict), AssertionError('Var init kwargs fail')
+def test_repr():
+    assert repr(x) == "Var(val=0, der=1)"
+    assert repr(y) == "Var(val=1, der=1)"

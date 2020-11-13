@@ -34,3 +34,10 @@ def test_tan():
         raise AssertionError(e)
     assert tanx.val == 0, AssertionError('tan val at 0 fail')
     assert tanx.der == 1, AssertionError('tan der at 0 fail')
+
+def test_tan_undef():
+    new = Var(3*np.pi/2)
+    try:
+       tan_new = tan(new)
+    except Exception as e:
+        assert(isinstance(e, ValueError))

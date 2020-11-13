@@ -11,6 +11,8 @@ class Var:
             self.der = 1
         self.args = kwargs
         
+    def __repr__(self):
+        return f"Var(val={self.val}, der={self.der})"
 
     def __add__(self, other):
         raise NotImplementedError
