@@ -51,5 +51,5 @@ def test_tan_undef():
        tanx = tan(Var(1))
     except Exception as e:
         raise AssertionError(e)
-    assert tanx.val == np.tan(1), AssertionError('tan val at 0 fail')
-    assert tanx.der == 1/(np.cos(1)**2), AssertionError('tan der at 0 fail')
+    assert tanx.val == np.tan(1), AssertionError('tan defined between -pi/2, pi/2 fail')
+    assert tanx.der == 1/(np.cos(1)**2), AssertionError('tan defined between -pi/2, pi/2 fail')
