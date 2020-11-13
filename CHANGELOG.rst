@@ -15,3 +15,10 @@ Version 0.0.2
 - Basic Elementary Functions begun in autodiff/AD_BasicMath
 - Testing begun
 - Milestone2-progress in docs
+
+Version 0.0.3
+===========
+
+ - Var class given repr method
+ - basic trig functions given documentation
+ 
