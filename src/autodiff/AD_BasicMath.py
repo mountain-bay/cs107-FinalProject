@@ -112,7 +112,7 @@ def tan(x):
     ValueError: Tangent undefined at odd multiples of pi/2
     val=3*pi/2
     """
-    if (x.val % np.pi) > 0:
+    if (x.val % np.pi > 0) and (x.val % (np.pi/2) == 0):
         raise ValueError(f"Tangent undefined at odd multiples of pi/2\n val={int(x.val/(np.pi/2))}*pi/2")
     newX = Var(np.tan(x.val), derivative=(1/np.cos(x.val)**2)*x.der)
     return newX
