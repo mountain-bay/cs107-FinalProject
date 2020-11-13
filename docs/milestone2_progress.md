@@ -39,4 +39,8 @@ For Milestone 2, we are splitting up into pairs to work on each module. The pair
   - Began working on BasicMath object. 
     - Boilerplate code for functions trig and special functions to fill in. 
     - Implemented sin, cos, tan.
+- Kaiwen:
+  - Started AD_Object implementation
+  - Discussed with team members implementation strategy
+  
   
