@@ -16,7 +16,7 @@ class Var:
         raise NotImplementedError
 
     def __radd__(self, other):
-        raise NotImplementedError
+        return self.__add__(other)
 
     def __sub__(self, other):
         raise NotImplementedError
@@ -25,10 +25,17 @@ class Var:
         raise NotImplementedError
 
     def __mul__(self, other):
-        raise NotImplementedError
+       try:
+            new_val = self.val * other.val
+            new_der = self.der * other.val + self.val * other.der
+        except:
+            new_val = self.val * other
+            new_der = self.der * other
+
+        return Var(new_val, new_der)
 
     def __rmul__(self, other):
-        raise NotImplementedError
+        return self.__mul__(other)
 
     def __div__(self, other):
         raise NotImplementedError
