@@ -13,16 +13,28 @@ class Var:
         
 
     def __add__(self, other):
-        raise NotImplementedError
+        try:
+            new_val = self.val + other.val
+            new_der = self.der + other.der
+        except:
+            new_val = self.val + other
+            new_der = self.der + other
+
+        return AutoDiffToy(new_val, new_der)
 
     def __radd__(self, other):
         return self.__add__(other)
 
     def __sub__(self, other):
-        raise NotImplementedError
+        try:
+            new_val = self.val - other.val
+            new_der = self.der - other.der
+        except:
+            new_val = self.val - other
+            new_der = self.der - other
 
     def __rsub__(self, other):
-        raise NotImplementedError
+        return self.__sub__(other)
 
     def __mul__(self, other):
        try:
@@ -41,7 +53,7 @@ class Var:
         raise NotImplementedError
 
     def __rdiv__(self, other):
-        raise NotImplementedError
+        return self.__div__(other)
     
     def __neg__(self):
         raise NotImplementedError
