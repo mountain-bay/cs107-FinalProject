@@ -15,7 +15,40 @@ def ln(x):
     raise NotImplementedError
 
 def sqrt(x):
-    raise NotImplementedError
+    """Returns a new Var with sqrt applied to the Var x
+
+    INPUTS
+    =======
+    x: AD_Object.Var, required
+
+    RETURNS
+    ========
+    newX: AD_Object.Var with val = x.val**(0.5) and der = 0.5*(x.val**(-0.5))*x.der
+       Has the form Var(val = x.val**(0.5), der = 0.5*(x.val**(-0.5))*x.der)
+
+    NOTES
+    =====
+    PRE: 
+         - x has AD_Object.Var type
+         - Has option to be scalar, vector, or matrix
+           - Determined and defined at instantiation
+           - More in AD_Object.Var docs
+    POST:
+         - x is not changed by this function
+         - returns a new Var
+
+    EXAMPLES
+    =========
+    >>> sqrt(Var(1, derivative=1))
+    Var(val=1, der=0.5)
+    """
+    if x.val < 0:
+        raise ValueError('Imaginary not implemented, can only sqrt positive numbers')
+    try:
+        newx = Var(x.val**(0.5), derivative=0.5*(x.val**(-0.5))*x.der)
+    except ZeroDivisionError:
+        newx = Var(0)
+    return newx
 
 def sin(x):
     """Returns a new Var with sine applied to the Var x

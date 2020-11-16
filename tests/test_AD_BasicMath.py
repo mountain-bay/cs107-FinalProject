@@ -1,6 +1,6 @@
 import numpy as np
 from src.autodiff.AD_Object import Var
-from src.autodiff.AD_BasicMath import sin, cos, tan
+from src.autodiff.AD_BasicMath import sin, cos, tan, sqrt
 
 try:
     x = Var(0, derivative=1)
@@ -53,3 +53,25 @@ def test_tan_undef():
         raise AssertionError(e)
     assert tanx.val == np.tan(1), AssertionError('tan defined between -pi/2, pi/2 fail')
     assert tanx.der == 1/(np.cos(1)**2), AssertionError('tan defined between -pi/2, pi/2 fail')
+
+def test_sqrt():
+    square = Var(16)
+    square_der = Var(4, derivative=16)
+    newsq = sqrt(square)
+    newsqder = sqrt(square_der)
+    assert sqrt(x).val == 0, AssertionError('Sqrt 0 val fail')
+    assert sqrt(x).der == 1, AssertionError('Sqrt 1 der fail')
+    assert newsq.val == 4, AssertionError('Sqrt square val fail')
+    assert newsq.der == 0.125, AssertionError('Sqrt square der fail')
+    assert newsqder.val == 2, AssertionError('Sqrt square_der val fail')
+    assert newsqder.der == 4, AssertionError('Sqrt square_der der fail')
+
+def test_sqrt_undef():
+    try:
+        sqrt(Var(-1))
+    except ValueError:
+        pass
+    except Exception:
+        raise AssertionError('negative val root wrong exception')
+    else:
+        raise AssertionError('negative val root total fail')
