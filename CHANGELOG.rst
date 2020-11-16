@@ -22,3 +22,11 @@ Version 0.0.3
  - Var class given repr method
  - basic trig functions given documentation
  
+
+Version 0.0.4
+===========
+
+ - Var class given add, sub, mul operation overloads
+ - basic defensive code
+ - tests for these operations
+ 

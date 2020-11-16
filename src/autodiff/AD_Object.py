@@ -5,8 +5,8 @@ class Var:
     """
     def __init__(self, val, **kwargs):
         self.val = val
-        if 'derivative' in kwargs:
-            self.der = kwargs['derivative']
+        if 'derivative' in kwargs and (isinstance(kwargs['derivative'], int) or isinstance(kwargs['derivative'], float)):
+                self.der = kwargs['derivative']
         else:
             self.der = 1
         self.args = kwargs
