@@ -21,3 +21,13 @@ def test_y_Var_init():
 def test_repr():
     assert repr(x) == "Var(val=0, der=1)"
     assert repr(y) == "Var(val=1, der=1)"
+def test_add():
+    numadd = x + 2
+    fltadd = x + 1.0
+    varadd = x + y
+    assert numadd.val == 2, AssertionError('Add num val fail')
+    assert numadd.der == 1, AssertionError('Add num der fail')
+    assert fltadd.val == 1, AssertionError('Add flt val fail')
+    assert fltadd.der == 1, AssertionError('Add flt der fail')
+    assert varadd.val == (x.val + y.val), AssertionError('Add var val fail')
+    assert varadd.der == (x.der + y.der), AssertionError('Add var der fail')

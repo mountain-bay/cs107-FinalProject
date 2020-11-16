@@ -21,10 +21,10 @@ class Var:
         except AttributeError:
             if isinstance(other, int) or isinstance(other, float):
                 new_val = self.val + other
-                new_der = self.der + other
+                new_der = self.der
             else:
                 raise ValueError("Please use a Var type or num type for operations on Var")
-        return Var(new_val, new_der)
+        return Var(new_val, derivative=new_der)
 
     def __radd__(self, other):
         return self.__add__(other)
@@ -36,11 +36,11 @@ class Var:
         except AttributeError:
             if isinstance(other, int) or isinstance(other, float):
                 new_val = self.val - other
-                new_der = self.der - other
+                new_der = self.der
             else:
                 raise ValueError("Please use a Var type or num type for operations on Var")
 
-        return Var(new_val, new_der)
+        return Var(new_val, derivative=new_der)
 
     def __rsub__(self, other):
         return self.__sub__(other)
@@ -55,7 +55,7 @@ class Var:
                 new_der = self.der * other
             else:
                 raise ValueError("Please use a Var type or num type for operations on Var")
-        return Var(new_val, new_der)
+        return Var(new_val, derivative=new_der)
 
     def __rmul__(self, other):
         return self.__mul__(other)
