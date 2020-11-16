@@ -14,13 +14,16 @@ class Var:
     def __repr__(self):
         return f"Var(val={self.val}, der={self.der})"
 
-        def __add__(self, other):
+    def __add__(self, other):
         try:
             new_val = self.val + other.val
             new_der = self.der + other.der
-        except:
-            new_val = self.val + other
-            new_der = self.der + other
+        except AttributeError:
+            if isinstance(other, int) or isinstance(other, float):
+                new_val = self.val + other
+                new_der = self.der + other
+            else:
+                raise ValueError("Please use a Var type or num type for operations on Var")
         return Var(new_val, new_der)
 
     def __radd__(self, other):
@@ -30,9 +33,12 @@ class Var:
         try:
             new_val = self.val - other.val
             new_der = self.der - other.der
-        except:
-            new_val = self.val - other
-            new_der = self.der - other
+        except AttributeError:
+            if isinstance(other, int) or isinstance(other, float):
+                new_val = self.val - other
+                new_der = self.der - other
+            else:
+                raise ValueError("Please use a Var type or num type for operations on Var")
 
         return Var(new_val, new_der)
 
@@ -43,9 +49,12 @@ class Var:
         try:
             new_val = self.val * other.val
             new_der = self.der * other.val + self.val * other.der
-        except:
-            new_val = self.val * other
-            new_der = self.der * other
+        except AttributeError:
+            if isinstance(other, int) or isinstance(other, float):
+                new_val = self.val * other
+                new_der = self.der * other
+            else:
+                raise ValueError("Please use a Var type or num type for operations on Var")
         return Var(new_val, new_der)
 
     def __rmul__(self, other):
