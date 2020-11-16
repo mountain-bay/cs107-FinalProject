@@ -34,3 +34,22 @@ def test_tan():
         raise AssertionError(e)
     assert tanx.val == 0, AssertionError('tan val at 0 fail')
     assert tanx.der == 1, AssertionError('tan der at 0 fail')
+    try:
+       tanx = tan(y)
+    except Exception as e:
+        raise AssertionError(e)
+    assert tanx.val == np.tan(np.pi), AssertionError('tan val at pi fail')
+    assert tanx.der == 1/(np.cos(np.pi)**2), AssertionError('tan der at pi fail')
+
+def test_tan_undef():
+    new = Var(3*np.pi/2)
+    try:
+       tan_new = tan(new)
+    except Exception as e:
+        assert(isinstance(e, ValueError))
+    try:
+       tanx = tan(Var(1))
+    except Exception as e:
+        raise AssertionError(e)
+    assert tanx.val == np.tan(1), AssertionError('tan defined between -pi/2, pi/2 fail')
+    assert tanx.der == 1/(np.cos(1)**2), AssertionError('tan defined between -pi/2, pi/2 fail')
