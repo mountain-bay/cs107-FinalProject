@@ -70,4 +70,15 @@ class Var:
         raise NotImplementedError
 
     def __pow__(self, other):
-        raise NotImplementedError
+        try:
+            new_val = self.val ** other.val
+            # applying exp rule
+            # i.e. a^b = e^(b*log(a)) => a^b*((a'*b)/a + b'*log(a))
+            new_der = new.val * (((self.der*other.val)/self.val) + other.der*np.ln(self.val))
+        except AttributeError:
+            if isinstance(other, int) or isinstance(other, float):
+                new_val = self.val ** other
+                new_der = other * (self.val ** (other - 1))
+            else:
+                raise ValueError("Please use a numtype or Var type for the power")
+        return Var(new_val, derivative=new_der)
