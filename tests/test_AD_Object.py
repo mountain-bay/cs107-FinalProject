@@ -124,7 +124,7 @@ def test_operation_checks():
     assert(failder.der == 1)
     assert(failder.args['derivative'] == 'foo')
 
-def test_pow():
-    powy = y ** 2
-    powyofx = y ** x
+# def test_pow():
+#     powy = y ** 2
+#     powyofx = y ** x
     
