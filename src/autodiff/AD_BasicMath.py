@@ -45,10 +45,10 @@ def sqrt(x):
     if x.val < 0:
         raise ValueError('Imaginary not implemented, can only sqrt positive numbers')
     try:
-        newx = Var(x.val**(0.5), derivative=0.5*(x.val**(-0.5))*x.der)
+        newX = Var(x.val**(0.5), derivative=0.5*(x.val**(-0.5))*x.der)
     except ZeroDivisionError:
-        newx = Var(0)
-    return newx
+        newX = Var(0)
+    return newX
 
 def sin(x):
     """Returns a new Var with sine applied to the Var x
