@@ -1,3 +1,4 @@
+import numpy as np
 
 class Var:
     """
@@ -74,7 +75,10 @@ class Var:
             new_val = self.val ** other.val
             # applying exp rule
             # i.e. a^b = e^(b*log(a)) => a^b*((a'*b)/a + b'*log(a))
-            new_der = new.val * (((self.der*other.val)/self.val) + other.der*np.ln(self.val))
+            if self.val == 0:
+                raise ValueError("Derivative at 0 not found")
+            else:
+                new_der = new_val * (((self.der*other.val)/self.val) + other.der*np.log(self.val))
         except AttributeError:
             if isinstance(other, int) or isinstance(other, float):
                 new_val = self.val ** other
