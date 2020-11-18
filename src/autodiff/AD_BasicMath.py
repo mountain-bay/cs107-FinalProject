@@ -12,7 +12,35 @@ def log(x):
     raise NotImplementedError
 
 def ln(x):
-    raise NotImplementedError
+    """Returns a new Var with ln applied to the Var x
+
+    INPUTS
+    =======
+    x: AD_Object.Var, required
+
+    RETURNS
+    ========
+    newX: AD_Object.Var with val = ln(x.val) and der = 1/(x.val)*x.der
+       Has the form Var(val = ln(x.val), der = 1/(x.val)*x.der)
+
+    NOTES
+    =====
+    PRE: 
+         - x has AD_Object.Var type
+         - Has option to be scalar, vector, or matrix
+           - Determined and defined at instantiation
+           - More in AD_Object.Var docs
+    POST:
+         - x is not changed by this function
+         - returns a new Var
+
+    EXAMPLES
+    =========
+    >>> ln(Var(np.e, derivative=np.e))
+    Var(val=1, der=1)
+    """
+    newX = Var(np.log(x.val), derivative=1/(x.val)*x.der)
+    return newX
 
 def sqrt(x):
     raise NotImplementedError
@@ -76,6 +104,8 @@ def cos(x):
     >>> cos(Var(0, derivative=1))
     Var(val=1, der=0)
     """
+    if (x.val < 0):
+        raise ValueError("Ln undefined at negative values")
     newX = Var(np.cos(x.val), derivative=-np.sin(x.val)*x.der)
     return newX
 

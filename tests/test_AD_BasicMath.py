@@ -1,6 +1,6 @@
 import numpy as np
 from src.autodiff.AD_Object import Var
-from src.autodiff.AD_BasicMath import sin, cos, tan
+from src.autodiff.AD_BasicMath import sin, cos, tan, ln
 
 try:
     x = Var(0, derivative=1)
@@ -53,3 +53,12 @@ def test_tan_undef():
         raise AssertionError(e)
     assert tanx.val == np.tan(1), AssertionError('tan defined between -pi/2, pi/2 fail')
     assert tanx.der == 1/(np.cos(1)**2), AssertionError('tan defined between -pi/2, pi/2 fail')
+
+
+def test_ln():
+    try:
+       lnx = ln(x)
+    except Exception as e:
+        raise AssertionError(e)
+    assert lnx.val == 0, AssertionError('ln val at 0 fail')
+    assert lnx.der == 1, AssertionError('ln val at 0 fail')
