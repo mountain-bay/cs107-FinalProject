@@ -59,4 +59,4 @@ def test_ln():
     try:
        lnx = ln(x)
     except Exception as e:
-        print(e + 'ln val at 0 fail')
+        print(str(e) + 'ln val at 0 fail')
