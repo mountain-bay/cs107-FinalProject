@@ -2,8 +2,29 @@ import numpy as np
 
 
 class Var:
-    """
-    TODO: docs
+    """Var class is the base class for a variable in this automatic 
+    differentiation library. Called with a val of type int or float, 
+    and optional kwargs, namely derivative. Defining derivative 
+    overwrites the default seed derivative value of 1 when calling a 
+    new Var type.
+
+    RETURNS
+    ========
+    Var object with val and der attributes
+
+    RAISES
+    =======
+    ValueError: When operating on the Var object with items that aren't Var or numtype
+
+    ValueError: When using a limited operation such as division or negative power on value 0
+
+    EXAMPLES
+    =========
+    >>> x = Var(1, derivative=2)
+    >>> print(x)
+    Var(val=1, der=2)
+    >>> x**2 + 2*x + 1
+    Var(val=4, der=4)
     """
 
     def __init__(self, val, **kwargs):
