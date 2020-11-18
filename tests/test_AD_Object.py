@@ -243,3 +243,9 @@ def test_neg():
     assert (-x*y).der == -1, AssertionError("-x*y fail")
     assert -y.val == -1, AssertionError("-y fail")
     assert -y.der == -1, AssertionError("-y fail")
+
+
+def test_multiple_operations():
+    fy = y**2 + 2*y + 5
+    assert fy.val == 1**2 + 2 + 5, AssertionError("Operations combined val fail")
+    assert fy.der == (2*1) + 2, AssertionError("Operations combined der fail")
