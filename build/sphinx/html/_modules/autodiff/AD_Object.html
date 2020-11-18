@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>autodiff.AD_Object &#8212; cs107-FinalProject  documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for autodiff.AD_Object</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="Var"><a class="viewcode-back" href="../../api/autodiff.html#autodiff.AD_Object.Var">[docs]</a><span class="k">class</span> <span class="nc">Var</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Var class is the base class for a variable in this automatic </span>
+<span class="sd">    differentiation library. Called with a val of type int or float, </span>
+<span class="sd">    and optional kwargs, namely derivative. Defining derivative </span>
+<span class="sd">    overwrites the default seed derivative value of 1 when calling a </span>
+<span class="sd">    new Var type.</span>
+
+<span class="sd">    RETURNS</span>
+<span class="sd">    ========</span>
+<span class="sd">    Var object with val and der attributes</span>
+
+<span class="sd">    RAISES</span>
+<span class="sd">    =======</span>
+<span class="sd">    ValueError: When operating on the Var object with items that aren&#39;t Var or numtype</span>
+
+<span class="sd">    ValueError: When using a limited operation such as division or negative power on value 0</span>
+
+<span class="sd">    EXAMPLES</span>
+<span class="sd">    =========</span>
+<span class="sd">    &gt;&gt;&gt; x = Var(1, derivative=2)</span>
+<span class="sd">    &gt;&gt;&gt; print(x)</span>
+<span class="sd">    Var(val=1, der=2)</span>
+<span class="sd">    &gt;&gt;&gt; x**2 + 2*x + 1</span>
+<span class="sd">    Var(val=4, der=4)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="k">if</span> <span class="s1">&#39;derivative&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;derivative&#39;</span><span class="p">],</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;derivative&#39;</span><span class="p">],</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">der</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;derivative&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">der</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Var(val=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="si">}</span><span class="s2">, der=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">der</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">der</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">der</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="n">new_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">+</span> <span class="n">other</span>
+                <span class="n">new_der</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">der</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Please use a Var type or num type for operations on Var&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Var</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">derivative</span><span class="o">=</span><span class="n">new_der</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">der</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">der</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="n">new_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">-</span> <span class="n">other</span>
+                <span class="n">new_der</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">der</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Please use a Var type or num type for operations on Var&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Var</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">derivative</span><span class="o">=</span><span class="n">new_der</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__rsub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">new_val</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span>
+        <span class="n">new_der</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">der</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">other</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">der</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Var</span><span class="p">):</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please use a Var type or num type for operations on Var&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Var</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">derivative</span><span class="o">=</span><span class="n">new_der</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">der</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">der</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="n">new_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*</span> <span class="n">other</span>
+                <span class="n">new_der</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">der</span> <span class="o">*</span> <span class="n">other</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Please use a Var type or num type for operations on Var&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Var</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">derivative</span><span class="o">=</span><span class="n">new_der</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="c1">#no div in Python, truediv</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">/</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">der</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">der</span><span class="p">)</span><span class="o">/</span><span class="n">other</span><span class="o">.</span><span class="n">val</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">new_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">/</span> <span class="n">other</span>
+                    <span class="n">new_der</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">der</span> <span class="o">/</span> <span class="n">other</span>
+                <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot divide by 0&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please use a Var type or num type for operations on Var&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot divide by 0&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Var</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">derivative</span><span class="o">=</span><span class="n">new_der</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__rtruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">der</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">der</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">new_val</span> <span class="o">=</span> <span class="n">other</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> 
+                    <span class="n">new_der</span> <span class="o">=</span> <span class="o">-</span> <span class="n">other</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="o">**</span><span class="mi">2</span> 
+                <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot divide by 0&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please use a Var type or num type for operations on Var&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot divide by 0&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Var</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">derivative</span><span class="o">=</span><span class="n">new_der</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">**</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span>
+            <span class="c1"># applying exp rule</span>
+            <span class="c1"># i.e. a^b = e^(b*log(a)) =&gt; a^b*((a&#39;*b)/a + b&#39;*log(a))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Derivative at 0 not found&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_der</span> <span class="o">=</span> <span class="n">new_val</span> <span class="o">*</span> \
+                    <span class="p">(((</span><span class="bp">self</span><span class="o">.</span><span class="n">der</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">val</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">der</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="n">new_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">**</span> <span class="n">other</span>
+                <span class="n">new_der</span> <span class="o">=</span> <span class="n">other</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">**</span> <span class="p">(</span><span class="n">other</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Please use a numtype or Var type for the power&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Var</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">derivative</span><span class="o">=</span><span class="n">new_der</span><span class="p">)</span>
+      
+    <span class="k">def</span> <span class="fm">__rpow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">cs107-FinalProject</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">Module Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, zacharyellison.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
