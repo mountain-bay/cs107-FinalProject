@@ -1,6 +1,6 @@
 import numpy as np
 from src.autodiff.AD_Object import Var
-from src.autodiff.AD_BasicMath import sin, cos, tan, sqrt
+from src.autodiff.AD_BasicMath import sin, cos, tan, sqrt, exp
 
 try:
     x = Var(0, derivative=1)
@@ -75,3 +75,12 @@ def test_sqrt_undef():
         raise AssertionError('negative val root wrong exception')
     else:
         raise AssertionError('negative val root total fail')
+
+def test_exp():
+    exp0 = exp(x)
+    assert exp0.val == 1, AssertionError("exp(0) val fail")
+    assert exp0.der == 1, AssertionError("exp(0) der fail")
+    exp1 = exp(Var(1))
+    assert exp1.val == np.e, AssertionError("exp(1) val fail")
+    assert exp1.der == np.e, AssertionError("exp(1) der fail")
+    

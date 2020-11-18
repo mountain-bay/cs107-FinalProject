@@ -6,7 +6,34 @@ from src.autodiff.AD_Object import Var
 # trig functions (sine, cosine, tangent)
 
 def exp(x):
-    raise NotImplementedError
+    """Returns a new Var with exp applied to the Var x
+
+    INPUTS
+    =======
+    x: AD_Object.Var, required
+
+    RETURNS
+    ========
+    newX: AD_Object.Var with val = e**x.val and der = x.der*(e**x.val)
+
+    NOTES
+    =====
+    PRE: 
+         - x has AD_Object.Var type
+         - Has option to be scalar, vector, or matrix
+           - Determined and defined at instantiation
+           - More in AD_Object.Var docs
+    POST:
+         - x is not changed by this function
+         - returns a new Var
+
+    EXAMPLES
+    =========
+    >>> exp(Var(0, derivative=1))
+    Var(val=1, der=1)
+    """
+    newX = Var(np.exp(x.val), derivative=x.der*(np.exp(x.val)))
+    return newX
 
 def log(x):
     raise NotImplementedError
