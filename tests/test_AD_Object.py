@@ -69,8 +69,8 @@ def test_sub():
 
 
 def test_rsub():
-    numsub = 2 - x
-    fltsub = 1.0 - x
+    numsub = 2-x
+    fltsub = 1.0-x
     varsub = y - x
     assert numsub.val == 2, AssertionError('rSub num val fail')
     assert numsub.der == -1, AssertionError('rSub num der fail')
@@ -146,7 +146,16 @@ def test_operation_checks():
     except Exception as e:
         raise AssertionError(f"failsub wrong exception {e} fail")
     else:
-        raise AssertionError("faildub no exception fail")
+        raise AssertionError("failsub no exception fail")
+    # try bad rsub
+    try:
+        failsub = 'str' - x
+    except ValueError:
+        pass
+    except Exception as e:
+        raise AssertionError(f"failrsub wrong exception {e} fail")
+    else:
+        raise AssertionError("failrsub no exception fail")
     # try bad mul
     try:
         failmul = x * 'str'
@@ -159,6 +168,20 @@ def test_operation_checks():
      # try bad div
     try:
         faildiv = x / 'str'
+    except ValueError:
+        pass
+    except Exception as e:
+        raise AssertionError(f"faildiv wrong exception {e} fail")
+     # try bad div 0
+    try:
+        faildiv = x / 0
+    except ValueError:
+        pass
+    except Exception as e:
+        raise AssertionError(f"faildiv wrong exception {e} fail")
+     # try bad rdiv 0
+    try:
+        faildiv = 1 / x
     except ValueError:
         pass
     except Exception as e:
@@ -218,3 +241,5 @@ def test_neg():
     assert -x.der == -1, AssertionError("-x fail")
     assert (-x*y).val == 0, AssertionError("-x*y fail")
     assert (-x*y).der == -1, AssertionError("-x*y fail")
+    assert -y.val == -1, AssertionError("-y fail")
+    assert -y.der == -1, AssertionError("-y fail")
