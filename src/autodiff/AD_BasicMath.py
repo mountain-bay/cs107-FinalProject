@@ -9,7 +9,37 @@ def exp(x):
     raise NotImplementedError
 
 def log(x):
-    raise NotImplementedError
+    """Returns a new Var with log base 10 applied to the Var x
+
+    INPUTS
+    =======
+    x: AD_Object.Var, required
+
+    RETURNS
+    ========
+    newX: AD_Object.Var with val = log(x.val) and der = 1/(x.val*ln(10))*x.der
+       Has the form Var(val = log(x.val), der = 1/(x.val*np.log(10))*x.der)
+
+    NOTES
+    =====
+    PRE: 
+         - x has AD_Object.Var type
+         - Has option to be scalar, vector, or matrix
+           - Determined and defined at instantiation
+           - More in AD_Object.Var docs
+    POST:
+         - x is not changed by this function
+         - returns a new Var
+
+    EXAMPLES
+    =========
+    >>> log(Var(10, derivative=np.log(10)))
+    Var(val=1, der=1)
+    """
+    if (x.val < 0):
+        raise ValueError("Log undefined at negative values")    
+    newX = Var(np.log10(x.val), derivative=1/(x.val*np.log(10))*x.der)
+    return newX
 
 def ln(x):
     """Returns a new Var with ln applied to the Var x
@@ -39,6 +69,8 @@ def ln(x):
     >>> ln(Var(np.e, derivative=np.e))
     Var(val=1, der=1)
     """
+    if (x.val < 0):
+        raise ValueError("Ln undefined at negative values")    
     newX = Var(np.log(x.val), derivative=1/(x.val)*x.der)
     return newX
 
@@ -104,8 +136,6 @@ def cos(x):
     >>> cos(Var(0, derivative=1))
     Var(val=1, der=0)
     """
-    if (x.val < 0):
-        raise ValueError("Ln undefined at negative values")
     newX = Var(np.cos(x.val), derivative=-np.sin(x.val)*x.der)
     return newX
 

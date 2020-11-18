@@ -60,3 +60,9 @@ def test_ln():
        lnx = ln(x)
     except Exception as e:
         print(str(e) + 'ln val at 0 fail')
+
+def test_log():
+    try:
+       logx = log(x)
+    except Exception as e:
+        print(str(e) + 'log val at 0 fail')
