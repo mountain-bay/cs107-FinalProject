@@ -44,7 +44,18 @@ class Var:
         return Var(new_val, derivative=new_der)
 
     def __rsub__(self, other):
-        return self.__sub__(other)
+        try:
+            new_val = other.val - self.val
+            new_der = other.der - self.der
+        except AttributeError:
+            if isinstance(other, int) or isinstance(other, float):
+                new_val = other - self.val
+                new_der = -self.der
+            else:
+                raise ValueError("Please use a Var type or num type for operations on Var")
+
+        return Var(new_val, derivative=new_der)
+        
 
     def __mul__(self, other):
         try:
@@ -60,12 +71,30 @@ class Var:
 
     def __rmul__(self, other):
         return self.__mul__(other)
+    
+    def __truediv__(self, other): #no div in Python, truediv
+        try:
+            new_val = self.val / other.val
+            new_der = (self.der * other.val - self.val * other.der)/other.val**2
+        except AttributeError:
+            if isinstance(other, int) or isinstance(other, float):
+                new_val = self.val / other
+                new_der = self.der / other
+            else:
+                raise ValueError("Please use a Var type or num type for operations on Var")
+        return Var(new_val, derivative=new_der)
 
-    def __div__(self, other):
-        raise NotImplementedError
-
-    def __rdiv__(self, other):
-        raise NotImplementedError
+    def __rtruediv__(self, other):
+        try:
+            new_val = other.val / self.val
+            new_der = (self.val * other.der - self.der * other.val) / self.val**2
+        except AttributeError:
+            if isinstance(other, int) or isinstance(other, float):
+                new_val = other / self.val 
+                new_der = - other / self.val**2 
+            else:
+                raise ValueError("Please use a Var type or num type for operations on Var")
+        return Var(new_val, derivative=new_der)
     
     def __neg__(self):
         raise NotImplementedError
@@ -86,3 +115,6 @@ class Var:
             else:
                 raise ValueError("Please use a numtype or Var type for the power")
         return Var(new_val, derivative=new_der)
+    
+    def __rpow__(self, other):
+        raise NotImplementedError

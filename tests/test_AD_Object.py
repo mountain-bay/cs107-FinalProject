@@ -132,25 +132,25 @@ def test_operation_checks():
     except ValueError:
         pass
     except Exception as e:
-        raise AssertionError(f"failadd wrong exception {e} fail")
+        raise AssertionError(f"failsub wrong exception {e} fail")
     else:
-        raise AssertionError("failadd no exception fail")
+        raise AssertionError("faildub no exception fail")
     # try bad mul
     try:
         failmul = x * 'str'
     except ValueError:
         pass
     except Exception as e:
-        raise AssertionError(f"failadd wrong exception {e} fail")
+        raise AssertionError(f"failmul wrong exception {e} fail")
     else:
-        raise AssertionError("failadd no exception fail")
+        raise AssertionError("failmul no exception fail")
      # try bad div
     try:
         faildiv = x / 'str'
     except ValueError:
         pass
     except Exception as e:
-        raise AssertionError(f"failadd wrong exception {e} fail")
+        raise AssertionError(f"faildiv wrong exception {e} fail")
     # try bad der 
     failder = Var(1, derivative='foo')
     assert(failder.val == 1) 
