@@ -30,3 +30,10 @@ Version 0.0.4
  - basic defensive code
  - tests for these operations
  
+
+Version 0.0.5
+===========
+
+ - Var class given pow operation overload
+   - cannot find x^y @ x=0
+ - BasicMath given sqrt function 
