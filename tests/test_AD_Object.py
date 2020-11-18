@@ -65,10 +65,10 @@ def test_rsub():
     numsub = 2 - x
     fltsub = 1.0 - x
     varsub = y - x
-    assert numsub.val == -2, AssertionError('rSub num val fail')
-    assert numsub.der == 1, AssertionError('rSub num der fail')
-    assert fltsub.val == -1, AssertionError('rSub flt val fail')
-    assert fltsub.der == 1, AssertionError('rSub flt der fail')
+    assert numsub.val == 2, AssertionError('rSub num val fail')
+    assert numsub.der == -1, AssertionError('rSub num der fail')
+    assert fltsub.val == 1, AssertionError('rSub flt val fail')
+    assert fltsub.der == -1, AssertionError('rSub flt der fail')
     assert varsub.val == (y.val - x.val), AssertionError('rSub var val fail')
     assert varsub.der == (y.der - x.der), AssertionError('rSub var der fail')
 
@@ -93,6 +93,28 @@ def test_rmul():
     assert fltmul.der == 1, AssertionError('rmul flt der fail')
     assert varmul.val == (y.val * x.val), AssertionError('rmul var val fail')
     assert varmul.der == (y.der * x.der), AssertionError('rmul var der fail')
+    
+def test_truediv():
+    nummul = x / 2
+    fltmul = x / 1.0
+    varmul = x / y
+    assert nummul.val == 0, AssertionError('truediv num val fail')
+    assert nummul.der == 0.5, AssertionError('truediv num der fail')
+    assert fltmul.val == 0, AssertionError('truediv flt val fail')
+    assert fltmul.der == 1, AssertionError('truediv flt der fail')
+    assert varmul.val == (x.val / y.val), AssertionError('truediv var val fail')
+    assert varmul.der == (x.der / y.der), AssertionError('truediv var der fail')
+
+def test_rtruediv():
+    nummul = 2 / y  #x = 0, so switching order of x and y here to rly test it out
+    fltmul = 1.0 / y
+    varmul = x / y
+    assert nummul.val == 2, AssertionError('rtruediv num val fail')
+    assert nummul.der == -2, AssertionError('rtruediv num der fail')
+    assert fltmul.val == 1, AssertionError('rtruediv flt val fail')
+    assert fltmul.der == -1, AssertionError('rtruediv flt der fail')
+    assert varmul.val == (x.val / y.val), AssertionError('rtruediv var val fail')
+    assert varmul.der == (x.der / y.der), AssertionError('rtruediv var der fail')
 
 def test_operation_checks():
     # try bad add
@@ -122,6 +144,13 @@ def test_operation_checks():
         raise AssertionError(f"failadd wrong exception {e} fail")
     else:
         raise AssertionError("failadd no exception fail")
+     # try bad div
+    try:
+        faildiv = x / 'str'
+    except ValueError:
+        pass
+    except Exception as e:
+        raise AssertionError(f"failadd wrong exception {e} fail")
     # try bad der 
     failder = Var(1, derivative='foo')
     assert(failder.val == 1) 
