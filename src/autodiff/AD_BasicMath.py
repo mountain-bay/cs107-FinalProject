@@ -6,41 +6,62 @@ from src.autodiff.AD_Object import Var
 # trig functions (sine, cosine, tangent)
 
 def exp(x):
-    raise NotImplementedError
+    """Returns a new Var with exp applied to the Var x
+    
+    :param x: object on which exp is applied, required
+    :type x: AD_Object.Var
+    :return: new object with exp applied to input
+    :rtype: AD_Object.Var
+    
+    :example:
+    >>> exp(Var(0))
+    Var(val=1, der=1)
+    """
+    newX = Var(np.exp(x.val), derivative=x.der*(np.exp(x.val)))
+    return newX
 
-def log(x):
-    raise NotImplementedError
+def log(x, base=2):
+    """Returns a new Var with log_base appled to input Var x
+    
+    :param x: object on which log is applied, required
+    :type x: AD_Object.Var
+    :param base: base to which the log is used, default=2
+    :type base: numtype, required
+    :return: new object with log applied to input
+    :rtype: AD_Object.Var
+    
+    :example:
+    >>> log(Var(2), 2)
+    Var(val=1, der=`TODO`)
+    """
+    return Var(1)
 
 def ln(x):
-    raise NotImplementedError
-
+    """Returns a new Var with ln appled to input Var x
+    
+    :param x: object on which ln is applied, required
+    :type x: AD_Object.Var    
+    :return: new object with ln applied to input
+    :rtype: AD_Object.Var
+    
+    :example:
+    >>> ln(Var(1))
+    Var(val=0, der=1)
+    """
+    return Var(1)
+    
 def sqrt(x):
-    """Returns a new Var with sqrt applied to the Var x
-
-    INPUTS
-    =======
-    x: AD_Object.Var, required
-
-    RETURNS
-    ========
-    newX: AD_Object.Var with val = x.val**(0.5) and der = 0.5*(x.val**(-0.5))*x.der
-       Has the form Var(val = x.val**(0.5), der = 0.5*(x.val**(-0.5))*x.der)
-
-    NOTES
-    =====
-    PRE: 
-         - x has AD_Object.Var type
-         - Has option to be scalar, vector, or matrix
-           - Determined and defined at instantiation
-           - More in AD_Object.Var docs
-    POST:
-         - x is not changed by this function
-         - returns a new Var
-
-    EXAMPLES
-    =========
-    >>> sqrt(Var(1, derivative=1))
-    Var(val=1, der=0.5)
+    """Returns a new Var with sqrt applied to the input Var x
+    
+    :param x: object on which sqrt is applied, required
+    :type x: AD_Object.Var
+    :raises ValueError: when x.val < 0, imaginary numbers have not yet been implemented
+    :return: new object with sqrt applied to input
+    :rtype: AD_Object.Var
+    
+    :example:
+    >>> sqrt(Var(4))
+    Var(val=2, der=0.25)
     """
     if x.val < 0:
         raise ValueError('Imaginary not implemented, can only sqrt positive numbers')
@@ -51,94 +72,45 @@ def sqrt(x):
     return newX
 
 def sin(x):
-    """Returns a new Var with sine applied to the Var x
-
-    INPUTS
-    =======
-    x: AD_Object.Var, required
-
-    RETURNS
-    ========
-    newX: AD_Object.Var with val = sin(x.val) and der = cos(x.val)*x.der
-       Has the form Var(val = sin(x.val), der = cos(x.val)*x.der)
-
-    NOTES
-    =====
-    PRE: 
-         - x has AD_Object.Var type
-         - Has option to be scalar, vector, or matrix
-           - Determined and defined at instantiation
-           - More in AD_Object.Var docs
-    POST:
-         - x is not changed by this function
-         - returns a new Var
-
-    EXAMPLES
-    =========
-    >>> sin(Var(0, derivative=1))
+    """Returns a new Var with sine applied to the input Var x
+    
+    :param x: object on which sine is applied, required
+    :type x: AD_Object.Var
+    :return: new object with sine applied to input
+    :rtype: AD_Object.Var
+    
+    :example:
+    >>> sin(Var(0))
     Var(val=0, der=1)
     """
     newX = Var(np.sin(x.val), derivative=np.cos(x.val)*x.der)
     return newX
 
 def cos(x):
-    """Returns a new Var with cosine applied to the Var x
-
-    INPUTS
-    =======
-    x: AD_Object.Var, required
-
-    RETURNS
-    ========
-    newX: AD_Object.Var with val = cos(x.val) and der = -sin(x.val)*x.der
-       Has the form Var(val = cos(x.val), der = -sin(x.val)*x.der)
-
-    NOTES
-    =====
-    PRE: 
-         - x has AD_Object.Var type
-         - Has option to be scalar, vector, or matrix
-           - Determined and defined at instantiation
-           - More in AD_Object.Var docs
-    POST:
-         - x is not changed by this function
-         - returns a new Var
-
-    EXAMPLES
-    =========
-    >>> cos(Var(0, derivative=1))
+    """Returns a new Var with cosine applied to the input Var x
+    
+    :param x: object on which cosine is applied, required
+    :type x: AD_Object.Var
+    :return: new object with cosine applied to input
+    :rtype: AD_Object.Var
+    
+    :example:
+    >>> cos(Var(0))
     Var(val=1, der=0)
     """
     newX = Var(np.cos(x.val), derivative=-np.sin(x.val)*x.der)
     return newX
 
 def tan(x):
-    """Returns a new Var with tangent applied to the Var x
+    """Returns a new Var with tangent applied to the input Var x
+    
+    :param x: object on which tangent is applied, required
+    :type x: AD_Object.Var
+    :raises ValueError: when x.val is an odd multiple of pi/2, where tangent is undefined
+    :return: new object with tangent applied to input
+    :rtype: AD_Object.Var
 
-    INPUTS
-    =======
-    x: AD_Object.Var, required
-
-    RETURNS
-    ========
-    newX: AD_Object.Var with val = tan(x.val) and der = sec^2(x.val)*x.der
-       Has the form Var(val = cos(x.val), der = -sin(x.val)*x.der) unless
-       x.val = c*(pi/2) where c is odd in which case a ValueError exception is raised
-
-    NOTES
-    =====
-    PRE: 
-         - x has AD_Object.Var type
-         - Has option to be scalar, vector, or matrix
-           - Determined and defined at instantiation
-           - More in AD_Object.Var docs
-    POST:
-         - x is not changed by this function
-         - raises a ValueError exception if x.val = c*pi/2 where c is odd
-         - returns a new Var
-
-    EXAMPLES
-    =========
+    :example:
     >>> tan(Var(0, derivative=1))
     Var(val=0, der=1)
     >>> tan(Var(3*(np.pi)/2, derivative=1))
