@@ -14,19 +14,23 @@ try:
 except NotImplementedError:
     assert 0 == 1, AssertionError('Var init not implemented')
 
+
 def test_x_Var_init():
     assert x.val == 0, AssertionError('Var init val fail')
     assert x.der == 1, AssertionError('Var init der fail')
     assert isinstance(x.args, dict), AssertionError('Var init kwargs fail')
+
 
 def test_y_Var_init():
     assert y.val == 1, AssertionError('Var init w/o der val fail')
     assert y.der == 1, AssertionError('Var init w/o derivative der fail')
     assert isinstance(y.args, dict), AssertionError('Var init kwargs fail')
 
+
 def test_repr():
     assert repr(x) == "Var(val=0, der=1)"
     assert repr(y) == "Var(val=1, der=1)"
+
 
 def test_add():
     numadd = x + 2
@@ -39,6 +43,7 @@ def test_add():
     assert varadd.val == (x.val + y.val), AssertionError('Add var val fail')
     assert varadd.der == (x.der + y.der), AssertionError('Add var der fail')
 
+
 def test_radd():
     numadd = 2 + x
     fltadd = 1.0 + x
@@ -49,6 +54,7 @@ def test_radd():
     assert fltadd.der == 1, AssertionError('rAdd flt der fail')
     assert varadd.val == (x.val + y.val), AssertionError('rAdd var val fail')
     assert varadd.der == (x.der + y.der), AssertionError('rAdd var der fail')
+
 
 def test_sub():
     numsub = x - 2
@@ -61,6 +67,7 @@ def test_sub():
     assert varsub.val == (x.val - y.val), AssertionError('sub var val fail')
     assert varsub.der == (x.der - y.der), AssertionError('sub var der fail')
 
+
 def test_rsub():
     numsub = 2 - x
     fltsub = 1.0 - x
@@ -71,6 +78,7 @@ def test_rsub():
     assert fltsub.der == 1, AssertionError('rSub flt der fail')
     assert varsub.val == (y.val - x.val), AssertionError('rSub var val fail')
     assert varsub.der == (y.der - x.der), AssertionError('rSub var der fail')
+
 
 def test_mul():
     nummul = x * 2
@@ -83,6 +91,7 @@ def test_mul():
     assert varmul.val == (x.val * y.val), AssertionError('mul var val fail')
     assert varmul.der == (x.der * y.der), AssertionError('mul var der fail')
 
+
 def test_rmul():
     nummul = 2 * x
     fltmul = 1.0 * x
@@ -93,6 +102,7 @@ def test_rmul():
     assert fltmul.der == 1, AssertionError('rmul flt der fail')
     assert varmul.val == (y.val * x.val), AssertionError('rmul var val fail')
     assert varmul.der == (y.der * x.der), AssertionError('rmul var der fail')
+
 
 def test_operation_checks():
     # try bad add
@@ -122,11 +132,12 @@ def test_operation_checks():
         raise AssertionError(f"failadd wrong exception {e} fail")
     else:
         raise AssertionError("failadd no exception fail")
-    # try bad der 
+    # try bad der
     failder = Var(1, derivative='foo')
-    assert(failder.val == 1) 
+    assert(failder.val == 1)
     assert(failder.der == 1)
     assert(failder.args['derivative'] == 'foo')
+
 
 def test_pow_num():
     pow3 = newx**3
@@ -139,6 +150,7 @@ def test_pow_num():
     assert pow0.val == 1, AssertionError("2**0 val fail")
     assert pow0.der == 0, AssertionError("2**0 der fail")
 
+
 def test_pow_var():
     xy = newx**y
     yx = y**newx
@@ -147,7 +159,7 @@ def test_pow_var():
     assert yx.val == 1, AssertionError("var pow val fail")
     assert yx.der == 2, AssertionError("var pow der fail")
 
-    
+
 def test_pow_fail():
     # 0^x der fail
     try:
@@ -168,3 +180,10 @@ def test_pow_fail():
         raise AssertionError(f"bad type exception {e}")
     else:
         raise AssertionError("bad type fail")
+
+
+def test_neg():
+    assert -x.val == 0, AssertionError("-x fail")
+    assert -x.der == -1, AssertionError("-x fail")
+    assert (-x*y).val == 0, AssertionError("-x*y fail")
+    assert (-x*y).der == -1, AssertionError("-x*y fail")
