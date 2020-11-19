@@ -149,10 +149,9 @@ MountainBay/
     -tests/
         -conftest.py
         -test_skeleton.py
-	`	
-	
-    We plan on creating two modules, AD_Object and AD_BasicMath.  Our first module will be called AD_Object. This will instantiate an Automatic Differentiation (AD) Object to be used in a forward or reverse mode, using the function and value given as input. It will contain methods that would calculate the Jacobian matrix, as well as AD in forward and reverse mode. The second module will be AD_BasicMath. This module will contain basic operations, such as addition, subtraction, and multiplication to be used on an AD object. It will also contain exponential and trig functions such as sin, cos, tan. The module will thus take an AD_Object as input, and output the results of elementary operations desired.
-    We will be using the framework PyScaffold, because it sets up a folder system for us and incorporates Sphinx, which builds documentation. Examples will be included as well. Both documentation and examples will be stored in the directory. The directory structure set up by PyScaffold is illustrated above, with our own modules for AD_Object and AD_BasicMath included. The test suite will live within the ‘tests’ folder PyScaffold automatically created for us. We will be developing our own tests as needed. In addition, we will use TravisCI and CodeCov, which we already integrated. 
+`		
+    We have created two modules, AD_Object and AD_BasicMath.  Our first module is called Var, and is stored under the module 'AD_Object'. This module instantiates an Automatic Differentiation (AD) Object to be used in a forward or reverse mode. It takes in a value and derivative, and returns our AD Object with new values and derivatives. In AD_Object, we perform operation overload for methods such as addition, subtraction, multiplication, division, power and negation. The second module is be AD_BasicMath. This module contains trigonometric functions such as sin, cos, tan, exponential functions, log and natural log functions. This allows us to carry out a variety of methods on our AD Object beyond the basic functions that we have overloaded. 
+    We used the framework PyScaffold, because it sets up a folder system for us and incorporates Sphinx, which builds documentation. The directory structure set up by PyScaffold is illustrated above, with our own modules for AD_Object and AD_BasicMath included. We wrote out documentation and examples for each module. We also wrote tests, which live within the 'test' folder, and continued to use TravisCI and CodeCov.
     This package will be distributed on PyPI, which allows users to upload packages. First, we will wrap our code into distribution packages using wheel and setuptools. We will test our package in order to ensure that all the necessary packages and files are included; Twine will be used in order to also assure that our package description will render accurately on PyPI. We will upload to TestPyPI to check if everything is functioning properly, and if so, we will then upload our package to PyPI using Twine.
 
 
@@ -187,3 +186,5 @@ How will you deal with elementary functions like sin, sqrt, log, and exp (and al
 
     These elementary functions will be contained within their own module, AD_BasicMath.
     
+## Future Features
+	For our next step, we propose to incorporate reverse mode into our project.
