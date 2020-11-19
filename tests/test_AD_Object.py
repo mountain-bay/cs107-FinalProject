@@ -119,9 +119,9 @@ def test_truediv():
 
 
 def test_rtruediv():
-    nummul = 2 / y  # x = 0, so switching order of x and y here to rly test it out
-    fltmul = 1.0 / y
-    varmul = x / y
+    nummul = y.__rtruediv__(2)
+    fltmul = y.__rtruediv__(1.0)
+    varmul = y.__rtruediv__(x)
     assert nummul.val == 2, AssertionError('rtruediv num val fail')
     assert nummul.der == -2, AssertionError('rtruediv num der fail')
     assert fltmul.val == 1, AssertionError('rtruediv flt val fail')
