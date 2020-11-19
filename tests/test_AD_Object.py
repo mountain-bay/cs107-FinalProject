@@ -119,9 +119,12 @@ def test_truediv():
 
 
 def test_rtruediv():
-    nummul = y.__rtruediv__(2)
-    fltmul = y.__rtruediv__(1.0)
-    varmul = y.__rtruediv__(x)
+    # nummul = y.__rtruediv__(2)
+    nummul = 2 / y
+    # fltmul = y.__rtruediv__(1.0)
+    fltmul = 1 / y
+    # varmul = y.__rtruediv__(x)
+    varmul = x / y
     assert nummul.val == 2, AssertionError('rtruediv num val fail')
     assert nummul.der == -2, AssertionError('rtruediv num der fail')
     assert fltmul.val == 1, AssertionError('rtruediv flt val fail')
