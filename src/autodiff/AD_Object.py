@@ -7,24 +7,17 @@ class Var:
     and optional kwargs, namely derivative. Defining derivative 
     overwrites the default seed derivative value of 1 when calling a 
     new Var type.
-
-    RETURNS
-    ========
-    Var object with val and der attributes
-
-    RAISES
-    =======
-    ValueError: When operating on the Var object with items that aren't Var or numtype
-
-    ValueError: When using a limited operation such as division or negative power on value 0
-
-    EXAMPLES
-    =========
+    
+    :return: Var object with val and der attributes
+    :rtype: AD_Object.Var
+    
+    :example:
+    >>> from src.autodiff.AD_Object import Var
     >>> x = Var(1, derivative=2)
     >>> print(x)
     Var(val=1, der=2)
     >>> x**2 + 2*x + 1
-    Var(val=4, der=4)
+    Var(val=4, der=6)
     """
 
     def __init__(self, val, **kwargs):

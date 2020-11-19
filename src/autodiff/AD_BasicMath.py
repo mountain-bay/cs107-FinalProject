@@ -14,37 +14,28 @@ def exp(x):
     :rtype: AD_Object.Var
     
     :example:
+    >>> from src.autodiff.AD_BasicMath import exp
+    >>> from src.autodiff.AD_Object import Var
     >>> exp(Var(0))
-    Var(val=1, der=1)
+    Var(val=1.0, der=1.0)
     """
     newX = Var(np.exp(x.val), derivative=x.der*(np.exp(x.val)))
     return newX
-
+  
 def log(x):
-    """Returns a new Var with log base 10 applied to the Var x
-
-    INPUTS
-    =======
-    x: AD_Object.Var, required
-
-    RETURNS
-    ========
-    newX: AD_Object.Var with val = log(x.val) and der = 1/(x.val*ln(10))*x.der
-       Has the form Var(val = log(x.val), der = 1/(x.val*np.log(10))*x.der)
-
-    NOTES
-    =====
-    PRE: 
-         - x has AD_Object.Var type
-         - Has option to be scalar, vector, or matrix
-           - Determined and defined at instantiation
-           - More in AD_Object.Var docs
-    POST:
-         - x is not changed by this function
-         - returns a new Var
-
-    EXAMPLES
-    =========
+    """Returns a new Var with log_10 appled to input Var x
+    
+    :param x: object on which log is applied, required
+    :type x: AD_Object.Var
+    :param base: base to which the log is used, default=2
+    :type base: numtype, required
+    :return: new object with log applied to input
+    :rtype: AD_Object.Var
+    
+    :examples:
+    >>> import numpy as np
+    >>> from src.autodiff.AD_Object import Var
+    >>> from src.autodiff.AD_BasicMath import log
     >>> log(Var(10, derivative=np.log(10)))
     Var(val=1, der=1)
     """
@@ -54,30 +45,17 @@ def log(x):
     return newX
 
 def ln(x):
-    """Returns a new Var with ln applied to the Var x
-
-    INPUTS
-    =======
-    x: AD_Object.Var, required
-
-    RETURNS
-    ========
-    newX: AD_Object.Var with val = ln(x.val) and der = 1/(x.val)*x.der
-       Has the form Var(val = ln(x.val), der = 1/(x.val)*x.der)
-
-    NOTES
-    =====
-    PRE: 
-         - x has AD_Object.Var type
-         - Has option to be scalar, vector, or matrix
-           - Determined and defined at instantiation
-           - More in AD_Object.Var docs
-    POST:
-         - x is not changed by this function
-         - returns a new Var
-
-    EXAMPLES
-    =========
+    """Returns a new Var with ln appled to input Var x
+    
+    :param x: object on which ln is applied, required
+    :type x: AD_Object.Var    
+    :return: new object with ln applied to input
+    :rtype: AD_Object.Var
+    
+    :examples:
+    >>> import numpy as np
+    >>> from src.autodiff.AD_Object import Var
+    >>> from src.autodiff.AD_BasicMath import ln
     >>> ln(Var(np.e, derivative=np.e))
     Var(val=1, der=1)
     """
@@ -85,7 +63,7 @@ def ln(x):
         raise ValueError("Ln undefined at negative values")    
     newX = Var(np.log(x.val), derivative=1/(x.val)*x.der)
     return newX
-
+  
 def sqrt(x):
     """Returns a new Var with sqrt applied to the input Var x
     
@@ -96,8 +74,10 @@ def sqrt(x):
     :rtype: AD_Object.Var
     
     :example:
+    >>> from src.autodiff.AD_BasicMath import sqrt
+    >>> from src.autodiff.AD_Object import Var
     >>> sqrt(Var(4))
-    Var(val=2, der=0.25)
+    Var(val=2.0, der=0.25)
     """
     if x.val < 0:
         raise ValueError('Imaginary not implemented, can only sqrt positive numbers')
@@ -116,8 +96,10 @@ def sin(x):
     :rtype: AD_Object.Var
     
     :example:
+    >>> from src.autodiff.AD_BasicMath import sin
+    >>> from src.autodiff.AD_Object import Var
     >>> sin(Var(0))
-    Var(val=0, der=1)
+    Var(val=0.0, der=1.0)
     """
     newX = Var(np.sin(x.val), derivative=np.cos(x.val)*x.der)
     return newX
@@ -131,8 +113,10 @@ def cos(x):
     :rtype: AD_Object.Var
     
     :example:
+    >>> from src.autodiff.AD_BasicMath import cos
+    >>> from src.autodiff.AD_Object import Var
     >>> cos(Var(0))
-    Var(val=1, der=0)
+    Var(val=1.0, der=-0.0)
     """
     newX = Var(np.cos(x.val), derivative=-np.sin(x.val)*x.der)
     return newX
@@ -147,11 +131,10 @@ def tan(x):
     :rtype: AD_Object.Var
 
     :example:
+    >>> from src.autodiff.AD_BasicMath import tan
+    >>> from src.autodiff.AD_Object import Var
     >>> tan(Var(0, derivative=1))
-    Var(val=0, der=1)
-    >>> tan(Var(3*(np.pi)/2, derivative=1))
-    ValueError: Tangent undefined at odd multiples of pi/2
-    val=3*pi/2
+    Var(val=0.0, der=1.0)
     """
     if (x.val % np.pi > 0) and (x.val % (np.pi/2) == 0):
         raise ValueError(f"Tangent undefined at odd multiples of pi/2\n val={int(x.val/(np.pi/2))}*pi/2")
