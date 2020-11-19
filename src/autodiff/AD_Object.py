@@ -113,8 +113,6 @@ class Var:
             else:
                 raise ValueError(
                     "Please use a Var type or num type for operations on Var")
-        except ZeroDivisionError:
-            raise ValueError("Cannot divide by 0")
         return Var(new_val, derivative=new_der)
 
     def __rtruediv__(self, other):
@@ -132,8 +130,6 @@ class Var:
             else:
                 raise ValueError(
                     "Please use a Var type or num type for operations on Var")
-        except ZeroDivisionError:
-            raise ValueError("Cannot divide by 0")
         return Var(new_val, derivative=new_der)
 
     def __neg__(self):

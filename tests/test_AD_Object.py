@@ -120,9 +120,9 @@ def test_truediv():
 
 
 def test_rtruediv():
-    nummul = 2 / y  # x = 0, so switching order of x and y here to rly test it out
-    fltmul = 1.0 / y
-    varmul = x / y
+    nummul = y.__rtruediv__(2)
+    fltmul = y.__rtruediv__(1.0)
+    varmul = y.__rtruediv__(x)
     assert nummul.val == 2, AssertionError('rtruediv num val fail')
     assert nummul.der == -2, AssertionError('rtruediv num der fail')
     assert fltmul.val == 1, AssertionError('rtruediv flt val fail')
@@ -177,6 +177,13 @@ def test_operation_checks():
         pass
     except Exception as e:
         raise AssertionError(f"faildiv wrong exception {e} fail")
+    # try bad rtruediv value
+    try:
+        faildiv = x.__rtruediv__('str')
+    except ValueError:
+        pass
+    except Exception as e:
+        raise AssertionError(f"faildiv wrong exception {e} fail")
      # try bad div 0
     try:
         faildiv = x / 0
@@ -186,7 +193,7 @@ def test_operation_checks():
         raise AssertionError(f"faildiv wrong exception {e} fail")
      # try bad rdiv 0
     try:
-        faildiv = 1 / x
+        faildiv = Var(0).__rtruediv__(0)
     except ValueError:
         pass
     except Exception as e:
@@ -271,4 +278,3 @@ def test_multiple_operations():
     assert fy.val == 1**2 + 2 + \
         5, AssertionError("Operations combined val fail")
     assert fy.der == (2*1) + 2, AssertionError("Operations combined der fail")
-
