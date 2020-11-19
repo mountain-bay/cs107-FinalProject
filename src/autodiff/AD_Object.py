@@ -77,7 +77,8 @@ class Var:
         elif isinstance(other, Var):
             pass
         else:
-            raise ValueError("Please use a Var type or num type for operations on Var")
+            raise ValueError(
+                "Please use a Var type or num type for operations on Var")
 
         return Var(new_val, derivative=new_der)
 
@@ -96,11 +97,12 @@ class Var:
 
     def __rmul__(self, other):
         return self.__mul__(other)
-    
-    def __truediv__(self, other): #no div in Python, truediv
+
+    def __truediv__(self, other):  # no div in Python, truediv
         try:
             new_val = self.val / other.val
-            new_der = (self.der * other.val - self.val * other.der)/other.val**2
+            new_der = (self.der * other.val -
+                       self.val * other.der)/other.val**2
         except AttributeError:
             if isinstance(other, int) or isinstance(other, float):
                 try:
@@ -109,28 +111,27 @@ class Var:
                 except ZeroDivisionError:
                     raise ValueError("Cannot divide by 0")
             else:
-                raise ValueError("Please use a Var type or num type for operations on Var")
-        except ZeroDivisionError:
-            raise ValueError("Cannot divide by 0")
+                raise ValueError(
+                    "Please use a Var type or num type for operations on Var")
         return Var(new_val, derivative=new_der)
 
     def __rtruediv__(self, other):
         try:
             new_val = other.val / self.val
-            new_der = (self.val * other.der - self.der * other.val) / self.val**2
+            new_der = (self.val * other.der -
+                       self.der * other.val) / self.val**2
         except AttributeError:
             if isinstance(other, int) or isinstance(other, float):
                 try:
-                    new_val = other / self.val 
-                    new_der = - other / self.val**2 
+                    new_val = other / self.val
+                    new_der = - other / self.val**2
                 except ZeroDivisionError:
                     raise ValueError("Cannot divide by 0")
             else:
-                raise ValueError("Please use a Var type or num type for operations on Var")
-        except ZeroDivisionError:
-            raise ValueError("Cannot divide by 0")
+                raise ValueError(
+                    "Please use a Var type or num type for operations on Var")
         return Var(new_val, derivative=new_der)
-    
+
     def __neg__(self):
         return self.__mul__(-1)
 
@@ -152,6 +153,6 @@ class Var:
                 raise ValueError(
                     "Please use a numtype or Var type for the power")
         return Var(new_val, derivative=new_der)
-      
+
     def __rpow__(self, other):
         raise NotImplementedError

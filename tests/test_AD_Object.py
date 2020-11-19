@@ -176,7 +176,7 @@ def test_operation_checks():
         pass
     except Exception as e:
         raise AssertionError(f"faildiv wrong exception {e} fail")
-    # try bad rtruediv
+    # try bad rtruediv value
     try:
         faildiv = x.__rtruediv__('str')
     except ValueError:
@@ -192,7 +192,7 @@ def test_operation_checks():
         raise AssertionError(f"faildiv wrong exception {e} fail")
      # try bad rdiv 0
     try:
-        faildiv = 1 / x
+        faildiv = Var(0).__rtruediv__(0)
     except ValueError:
         pass
     except Exception as e:
@@ -261,4 +261,3 @@ def test_multiple_operations():
     assert fy.val == 1**2 + 2 + \
         5, AssertionError("Operations combined val fail")
     assert fy.der == (2*1) + 2, AssertionError("Operations combined der fail")
-
