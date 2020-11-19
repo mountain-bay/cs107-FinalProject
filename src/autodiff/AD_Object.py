@@ -116,21 +116,10 @@ class Var:
         return Var(new_val, derivative=new_der)
 
     def __rtruediv__(self, other):
-        try:
-            new_val = other.val / self.val
-            new_der = (self.val * other.der -
-                       self.der * other.val) / self.val**2
-        except AttributeError:
-            if isinstance(other, int) or isinstance(other, float):
-                try:
-                    new_val = other / self.val
-                    new_der = - other / self.val**2
-                except ZeroDivisionError:
-                    raise ValueError("Cannot divide by 0")
-            else:
-                raise ValueError(
-                    "Please use a Var type or num type for operations on Var")
-        return Var(new_val, derivative=new_der)
+        if not (isinstance(other, int) or isinstance(other, float)):
+            raise ValueError(
+                "Please use a Var type or num type for operations on Var")
+        return Var(other, derivative=0).__truediv__(self)
 
     def __neg__(self):
         return self.__mul__(-1)

@@ -120,17 +120,12 @@ def test_truediv():
 
 
 def test_rtruediv():
-    nummul = y.__rtruediv__(2)
-    fltmul = y.__rtruediv__(1.0)
-    varmul = y.__rtruediv__(x)
+    nummul = 2 / y
+    fltmul = 1.0 / y
     assert nummul.val == 2, AssertionError('rtruediv num val fail')
     assert nummul.der == -2, AssertionError('rtruediv num der fail')
     assert fltmul.val == 1, AssertionError('rtruediv flt val fail')
     assert fltmul.der == -1, AssertionError('rtruediv flt der fail')
-    assert varmul.val == (
-        x.val / y.val), AssertionError('rtruediv var val fail')
-    assert varmul.der == (
-        x.der / y.der), AssertionError('rtruediv var der fail')
 
 
 def test_operation_checks():
@@ -179,7 +174,7 @@ def test_operation_checks():
         raise AssertionError(f"faildiv wrong exception {e} fail")
     # try bad rtruediv value
     try:
-        faildiv = x.__rtruediv__('str')
+        faildiv = 'str' / y
     except ValueError:
         pass
     except Exception as e:
@@ -187,13 +182,6 @@ def test_operation_checks():
      # try bad div 0
     try:
         faildiv = x / 0
-    except ValueError:
-        pass
-    except Exception as e:
-        raise AssertionError(f"faildiv wrong exception {e} fail")
-     # try bad rdiv 0
-    try:
-        faildiv = Var(0).__rtruediv__(0)
     except ValueError:
         pass
     except Exception as e:
