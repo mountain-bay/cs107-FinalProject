@@ -69,18 +69,10 @@ class Var:
         return Var(new_val, derivative=new_der)
 
     def __rsub__(self, other):
-        new_val = -self.val
-        new_der = -self.der
-        if isinstance(other, (int, float)):
-            new_val = other - self.val
-            new_der = -self.der
-        elif isinstance(other, Var):
-            pass
-        else:
+        if not (isinstance(other, int) or isinstance(other, float)):
             raise ValueError(
                 "Please use a Var type or num type for operations on Var")
-
-        return Var(new_val, derivative=new_der)
+        return Var(other, derivative=0).__sub__(self)
 
     def __mul__(self, other):
         try:
