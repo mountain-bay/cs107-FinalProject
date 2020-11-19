@@ -21,9 +21,9 @@ def exp(x):
     """
     newX = Var(np.exp(x.val), derivative=x.der*(np.exp(x.val)))
     return newX
-
-def log(x, base=2):
-    """Returns a new Var with log_base appled to input Var x
+  
+def log(x):
+    """Returns a new Var with log_10 appled to input Var x
     
     :param x: object on which log is applied, required
     :type x: AD_Object.Var
@@ -32,9 +32,17 @@ def log(x, base=2):
     :return: new object with log applied to input
     :rtype: AD_Object.Var
     
+    :examples:
+    >>> import numpy as np
+    >>> from src.autodiff.AD_Object import Var
+    >>> from src.autodiff.AD_BasicMath import log
+    >>> log(Var(10, derivative=np.log(10)))
+    Var(val=1, der=1)
     """
-    raise NotImplementedError
-    # return Var(1)
+    if (x.val < 0):
+        raise ValueError("Log undefined at negative values")    
+    newX = Var(np.log10(x.val), derivative=1/(x.val*np.log(10))*x.der)
+    return newX
 
 def ln(x):
     """Returns a new Var with ln appled to input Var x
@@ -43,10 +51,19 @@ def ln(x):
     :type x: AD_Object.Var    
     :return: new object with ln applied to input
     :rtype: AD_Object.Var
-    """
-    raise NotImplementedError
-    # return Var(1)
     
+    :examples:
+    >>> import numpy as np
+    >>> from src.autodiff.AD_Object import Var
+    >>> from src.autodiff.AD_BasicMath import ln
+    >>> ln(Var(np.e, derivative=np.e))
+    Var(val=1, der=1)
+    """
+    if (x.val < 0):
+        raise ValueError("Ln undefined at negative values")    
+    newX = Var(np.log(x.val), derivative=1/(x.val)*x.der)
+    return newX
+  
 def sqrt(x):
     """Returns a new Var with sqrt applied to the input Var x
     

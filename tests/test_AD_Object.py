@@ -1,5 +1,6 @@
 # import numpy as np
 from src.autodiff.AD_Object import Var
+import numpy as np
 
 try:
     x = Var(0, derivative=1)
@@ -69,15 +70,12 @@ def test_sub():
 
 
 def test_rsub():
-    numsub = 2-x
-    fltsub = 1.0-x
-    varsub = y - x
+    numsub = 2 - x
+    fltsub = 1.0 - x
     assert numsub.val == 2, AssertionError('rSub num val fail')
     assert numsub.der == -1, AssertionError('rSub num der fail')
     assert fltsub.val == 1, AssertionError('rSub flt val fail')
     assert fltsub.der == -1, AssertionError('rSub flt der fail')
-    assert varsub.val == (y.val - x.val), AssertionError('rSub var val fail')
-    assert varsub.der == (y.der - x.der), AssertionError('rSub var der fail')
 
 
 def test_mul():
@@ -102,8 +100,8 @@ def test_rmul():
     assert fltmul.der == 1, AssertionError('rmul flt der fail')
     assert varmul.val == (y.val * x.val), AssertionError('rmul var val fail')
     assert varmul.der == (y.der * x.der), AssertionError('rmul var der fail')
-    
-    
+
+
 def test_truediv():
     nummul = x / 2
     fltmul = x / 1.0
@@ -112,22 +110,21 @@ def test_truediv():
     assert nummul.der == 0.5, AssertionError('truediv num der fail')
     assert fltmul.val == 0, AssertionError('truediv flt val fail')
     assert fltmul.der == 1, AssertionError('truediv flt der fail')
-    assert varmul.val == (x.val / y.val), AssertionError('truediv var val fail')
-    assert varmul.der == (x.der / y.der), AssertionError('truediv var der fail')
+    assert varmul.val == (
+        x.val / y.val), AssertionError('truediv var val fail')
+    assert varmul.der == (
+        x.der / y.der), AssertionError('truediv var der fail')
 
-    
+
 def test_rtruediv():
-    nummul = 2 / y  #x = 0, so switching order of x and y here to rly test it out
+    nummul = 2 / y
     fltmul = 1.0 / y
-    varmul = x / y
     assert nummul.val == 2, AssertionError('rtruediv num val fail')
     assert nummul.der == -2, AssertionError('rtruediv num der fail')
     assert fltmul.val == 1, AssertionError('rtruediv flt val fail')
     assert fltmul.der == -1, AssertionError('rtruediv flt der fail')
-    assert varmul.val == (x.val / y.val), AssertionError('rtruediv var val fail')
-    assert varmul.der == (x.der / y.der), AssertionError('rtruediv var der fail')
 
-    
+
 def test_operation_checks():
     # try bad add
     try:
@@ -172,6 +169,13 @@ def test_operation_checks():
         pass
     except Exception as e:
         raise AssertionError(f"faildiv wrong exception {e} fail")
+    # try bad rtruediv value
+    try:
+        faildiv = 'str' / y
+    except ValueError:
+        pass
+    except Exception as e:
+        raise AssertionError(f"faildiv wrong exception {e} fail")
      # try bad div 0
     try:
         faildiv = x / 0
@@ -179,20 +183,13 @@ def test_operation_checks():
         pass
     except Exception as e:
         raise AssertionError(f"faildiv wrong exception {e} fail")
-     # try bad rdiv 0
-    try:
-        faildiv = 1 / x
-    except ValueError:
-        pass
-    except Exception as e:
-        raise AssertionError(f"faildiv wrong exception {e} fail")
-    # try bad der 
+    # try bad der
     failder = Var(1, derivative='foo')
     assert(failder.val == 1)
     assert(failder.der == 1)
     assert(failder.args['derivative'] == 'foo')
 
-    
+
 def test_pow_num():
     pow3 = newx**3
     pow2 = y**2
@@ -212,6 +209,13 @@ def test_pow_var():
     assert xy.der > 2 and xy.der < 3, AssertionError("var pow der fail")
     assert yx.val == 1, AssertionError("var pow val fail")
     assert yx.der == 2, AssertionError("var pow der fail")
+
+
+def test_rpow_num():
+    # 3^x
+    rpow3 = newx.__rpow__(3)
+    assert rpow3.val == 3**2, AssertionError("3**2 val fail")
+    assert rpow3.der == 3**2 * np.log(3), AssertionError("3**2 der fail")
 
 
 def test_pow_fail():
@@ -234,8 +238,20 @@ def test_pow_fail():
         raise AssertionError(f"bad type exception {e}")
     else:
         raise AssertionError("bad type fail")
-        
-        
+
+
+def test_rpow_fail():
+    # Type checking
+    try:
+        'str' ** x
+    except ValueError:
+        pass
+    except Exception as e:
+        raise AssertionError(f"bad type exception {e}")
+    else:
+        raise AssertionError("bad type fail")
+
+
 def test_neg():
     assert -x.val == 0, AssertionError("-x fail")
     assert -x.der == -1, AssertionError("-x fail")
@@ -247,5 +263,6 @@ def test_neg():
 
 def test_multiple_operations():
     fy = y**2 + 2*y + 5
-    assert fy.val == 1**2 + 2 + 5, AssertionError("Operations combined val fail")
+    assert fy.val == 1**2 + 2 + \
+        5, AssertionError("Operations combined val fail")
     assert fy.der == (2*1) + 2, AssertionError("Operations combined der fail")
