@@ -155,8 +155,8 @@ class Var:
         return Var(new_val, derivative=new_der)
 
     def __rpow__(self, other):
-        # Cover case in which other is an int or float
-        if isinstance(other, int) or isinstance(other, float):
-            # Convert to Var
-            other = Var(other, derivative=0)
-        return other.__pow__(self)
+        # Cover case in which other is invalid type
+        if not (isinstance(other, int) or isinstance(other, float)):
+            raise ValueError(
+                "Please use a Var type or num type for operations on Var")
+        return Var(other, derivative=0).__pow__(self)

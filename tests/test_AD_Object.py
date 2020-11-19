@@ -232,16 +232,6 @@ def test_rpow_num():
     assert rpow3.val == 3**2, AssertionError("3**2 val fail")
     assert rpow3.der == 3**2 * np.log(3), AssertionError("3**2 der fail")
 
-
-def test_rpow_var():
-    xy = newx**y
-    yx = y**newx
-    assert xy.val == y.__rpow__(newx).val, AssertionError("var pow val fail")
-    assert xy.der == y.__rpow__(newx).der, AssertionError("var pow derfail")
-    assert yx.der == newx.__rpow__(y).der, AssertionError("var pow val fail")
-    assert yx.val == newx.__rpow__(y).val, AssertionError("var pow der fail")
-
-
 def test_pow_fail():
     # 0^x der fail
     try:
