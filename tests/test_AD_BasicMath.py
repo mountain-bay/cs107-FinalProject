@@ -60,11 +60,25 @@ def test_ln():
     except Exception as e:
         print(str(e) + 'ln val at 0 fail')
 
+def test_ln_undef():
+    new = Var(-3)
+    try:
+        ln_new = ln(new)
+    except Exception as e:
+        assert(isinstance(e, ValueError))
+
 def test_log():
     try:
        logx = log(x)
     except Exception as e:
         print(str(e) + 'log val at 0 fail')
+
+def test_log_undef():
+    new = Var(-3)
+    try:
+        log_new = log(new)
+    except Exception as e:
+        assert(isinstance(e, ValueError))
 
 def test_sqrt():
     square = Var(16)
