@@ -1,0 +1,2 @@
+include versioneer.py
+include src/autodiff/_version.py
