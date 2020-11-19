@@ -86,8 +86,7 @@ def ln(x):
     """
     if (x.val < 0):
         raise ValueError("Ln undefined at negative values")
-    newX = Var(np.log(x.val), derivative=1/(x.val)*x.der)
-    return newX
+    return Var(np.log(x.val), derivative=1/(x.val)*x.der)
 
 
 def sqrt(x):
