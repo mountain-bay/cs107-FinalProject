@@ -1,6 +1,6 @@
 import numpy as np
 from src.autodiff.AD_Object import Var
-from src.autodiff.AD_BasicMath import sin, cos, tan, ln
+from src.autodiff.AD_BasicMath import sin, cos, tan, ln, sqrt, exp
 
 try:
     x = Var(0, derivative=1)
@@ -54,7 +54,6 @@ def test_tan_undef():
     assert tanx.val == np.tan(1), AssertionError('tan defined between -pi/2, pi/2 fail')
     assert tanx.der == 1/(np.cos(1)**2), AssertionError('tan defined between -pi/2, pi/2 fail')
 
-
 def test_ln():
     try:
        lnx = ln(x)
@@ -66,3 +65,34 @@ def test_log():
        logx = log(x)
     except Exception as e:
         print(str(e) + 'log val at 0 fail')
+
+def test_sqrt():
+    square = Var(16)
+    square_der = Var(4, derivative=16)
+    newsq = sqrt(square)
+    newsqder = sqrt(square_der)
+    assert sqrt(x).val == 0, AssertionError('Sqrt 0 val fail')
+    assert sqrt(x).der == 1, AssertionError('Sqrt 1 der fail')
+    assert newsq.val == 4, AssertionError('Sqrt square val fail')
+    assert newsq.der == 0.125, AssertionError('Sqrt square der fail')
+    assert newsqder.val == 2, AssertionError('Sqrt square_der val fail')
+    assert newsqder.der == 4, AssertionError('Sqrt square_der der fail')
+
+def test_sqrt_undef():
+    try:
+        sqrt(Var(-1))
+    except ValueError:
+        pass
+    except Exception:
+        raise AssertionError('negative val root wrong exception')
+    else:
+        raise AssertionError('negative val root total fail')
+
+def test_exp():
+    exp0 = exp(x)
+    assert exp0.val == 1, AssertionError("exp(0) val fail")
+    assert exp0.der == 1, AssertionError("exp(0) der fail")
+    exp1 = exp(Var(1))
+    assert exp1.val == np.e, AssertionError("exp(1) val fail")
+    assert exp1.der == np.e, AssertionError("exp(1) der fail")
+
