@@ -157,6 +157,7 @@ class Var:
     def __rpow__(self, other):
         # Cover case in which other is invalid type
         if not (isinstance(other, int) or isinstance(other, float)):
+            print("test")
             raise ValueError(
                 "Please use a Var type or num type for operations on Var")
         return Var(other, derivative=0).__pow__(self)
