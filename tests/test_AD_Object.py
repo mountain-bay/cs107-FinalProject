@@ -70,15 +70,12 @@ def test_sub():
 
 
 def test_rsub():
-    numsub = 2-x
-    fltsub = 1.0-x
-    varsub = y - x
+    numsub = 2 - x
+    fltsub = 1.0 - x
     assert numsub.val == 2, AssertionError('rSub num val fail')
     assert numsub.der == -1, AssertionError('rSub num der fail')
     assert fltsub.val == 1, AssertionError('rSub flt val fail')
     assert fltsub.der == -1, AssertionError('rSub flt der fail')
-    assert varsub.val == (y.val - x.val), AssertionError('rSub var val fail')
-    assert varsub.der == (y.der - x.der), AssertionError('rSub var der fail')
 
 
 def test_mul():
