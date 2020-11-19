@@ -155,4 +155,8 @@ class Var:
         return Var(new_val, derivative=new_der)
 
     def __rpow__(self, other):
-        raise NotImplementedError
+        # Cover case in which other is an int or float
+        if isinstance(other, int) or isinstance(other, float):
+            # Convert to Var
+            other = Var(other, derivative=0)
+        return other.__pow__(self)

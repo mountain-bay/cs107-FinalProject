@@ -1,5 +1,6 @@
 # import numpy as np
 from src.autodiff.AD_Object import Var
+import numpy as np
 
 try:
     x = Var(0, derivative=1)
@@ -223,6 +224,22 @@ def test_pow_var():
     assert xy.der > 2 and xy.der < 3, AssertionError("var pow der fail")
     assert yx.val == 1, AssertionError("var pow val fail")
     assert yx.der == 2, AssertionError("var pow der fail")
+
+
+def test_rpow_num():
+    # 3^x
+    rpow3 = newx.__rpow__(3)
+    assert rpow3.val == 3**2, AssertionError("3**2 val fail")
+    assert rpow3.der == 3**2 * np.log(3), AssertionError("3**2 der fail")
+
+
+def test_rpow_var():
+    xy = newx**y
+    yx = y**newx
+    assert xy.val == y.__rpow__(newx).val, AssertionError("var pow val fail")
+    assert xy.der == y.__rpow__(newx).der, AssertionError("var pow derfail")
+    assert yx.der == newx.__rpow__(y).der, AssertionError("var pow val fail")
+    assert yx.val == newx.__rpow__(y).val, AssertionError("var pow der fail")
 
 
 def test_pow_fail():
