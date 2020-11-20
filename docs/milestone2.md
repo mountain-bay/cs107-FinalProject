@@ -182,5 +182,5 @@ For our next step, we propose to incorporate a reverse mode implementation into 
 
 The reverse mode is composed of two steps: a forward pass and a reverse pass. The forward pass evaluates the elementary functions and stores the partial derivative, but does not do the chain rule. The reverse pass begin with evaluating Vbar = (df/dVn) = 1, because f = Vn. It then works backwards to evaluate the derivatives, adding values when a node has multiple children (implementing the chain rule). Note: while the forward mode calculates the Jacobian-vector product, the reverse mode actually calculates the Jacobian transpose-product. Currently, we anticipate doing this by constructing a graph of nodes that represents our original expression as the program runs. This means an input x and/or y would be the root of such a graph, and we would now think of Var as creating nodes that have children. Whenever a new expression is built out of current nodes, that new expression would be a child of each of those current nodes. This would also save contributing weights for gradient computation later on. We would then propagate derivatives using recursion.
     
- In addition, we want to add the ability to allow for vector inputs.
+In addition, we want to add the ability to allow for vector inputs.
 

@@ -7,24 +7,17 @@ class Var:
     and optional kwargs, namely derivative. Defining derivative 
     overwrites the default seed derivative value of 1 when calling a 
     new Var type.
-
-    RETURNS
-    ========
-    Var object with val and der attributes
-
-    RAISES
-    =======
-    ValueError: When operating on the Var object with items that aren't Var or numtype
-
-    ValueError: When using a limited operation such as division or negative power on value 0
-
-    EXAMPLES
-    =========
+    
+    :return: Var object with val and der attributes
+    :rtype: AD_Object.Var
+    
+    :example:
+    >>> from src.autodiff.AD_Object import Var
     >>> x = Var(1, derivative=2)
     >>> print(x)
     Var(val=1, der=2)
     >>> x**2 + 2*x + 1
-    Var(val=4, der=4)
+    Var(val=4, der=6)
     """
 
     def __init__(self, val, **kwargs):
@@ -69,18 +62,10 @@ class Var:
         return Var(new_val, derivative=new_der)
 
     def __rsub__(self, other):
-        new_val = -self.val
-        new_der = -self.der
-        if isinstance(other, (int, float)):
-            new_val = other - self.val
-            new_der = -self.der
-        elif isinstance(other, Var):
-            pass
-        else:
+        if not (isinstance(other, int) or isinstance(other, float)):
             raise ValueError(
                 "Please use a Var type or num type for operations on Var")
-
-        return Var(new_val, derivative=new_der)
+        return Var(other, derivative=0).__sub__(self)
 
     def __mul__(self, other):
         try:
@@ -116,21 +101,10 @@ class Var:
         return Var(new_val, derivative=new_der)
 
     def __rtruediv__(self, other):
-        try:
-            new_val = other.val / self.val
-            new_der = (self.val * other.der -
-                       self.der * other.val) / self.val**2
-        except AttributeError:
-            if isinstance(other, int) or isinstance(other, float):
-                try:
-                    new_val = other / self.val
-                    new_der = - other / self.val**2
-                except ZeroDivisionError:
-                    raise ValueError("Cannot divide by 0")
-            else:
-                raise ValueError(
-                    "Please use a Var type or num type for operations on Var")
-        return Var(new_val, derivative=new_der)
+        if not (isinstance(other, int) or isinstance(other, float)):
+            raise ValueError(
+                "Please use a Var type or num type for operations on Var")
+        return Var(other, derivative=0).__truediv__(self)
 
     def __neg__(self):
         return self.__mul__(-1)
@@ -155,8 +129,9 @@ class Var:
         return Var(new_val, derivative=new_der)
 
     def __rpow__(self, other):
-        # Cover case in which other is an int or float
-        if isinstance(other, int) or isinstance(other, float):
-            # Convert to Var
-            other = Var(other, derivative=0)
-        return other.__pow__(self)
+        # Cover case in which other is invalid type
+        if not (isinstance(other, int) or isinstance(other, float)):
+            print("test")
+            raise ValueError(
+                "Please use a Var type or num type for operations on Var")
+        return Var(other, derivative=0).__pow__(self)

@@ -14,14 +14,16 @@ def exp(x):
     :rtype: AD_Object.Var
     
     :example:
+    >>> from src.autodiff.AD_BasicMath import exp
+    >>> from src.autodiff.AD_Object import Var
     >>> exp(Var(0))
-    Var(val=1, der=1)
+    Var(val=1.0, der=1.0)
     """
     newX = Var(np.exp(x.val), derivative=x.der*(np.exp(x.val)))
     return newX
-
-def log(x, base=2):
-    """Returns a new Var with log_base appled to input Var x
+  
+def log(x):
+    """Returns a new Var with log_10 appled to input Var x
     
     :param x: object on which log is applied, required
     :type x: AD_Object.Var
@@ -30,11 +32,17 @@ def log(x, base=2):
     :return: new object with log applied to input
     :rtype: AD_Object.Var
     
-    :example:
-    >>> log(Var(2), 2)
-    Var(val=1, der=`TODO`)
+    :examples:
+    >>> import numpy as np
+    >>> from src.autodiff.AD_Object import Var
+    >>> from src.autodiff.AD_BasicMath import log
+    >>> log(Var(10, derivative=np.log(10)))
+    Var(val=1, der=1)
     """
-    return Var(1)
+    if (x.val < 0):
+        raise ValueError("Log undefined at negative values")    
+    newX = Var(np.log10(x.val), derivative=1/(x.val*np.log(10))*x.der)
+    return newX
 
 def ln(x):
     """Returns a new Var with ln appled to input Var x
@@ -44,12 +52,18 @@ def ln(x):
     :return: new object with ln applied to input
     :rtype: AD_Object.Var
     
-    :example:
-    >>> ln(Var(1))
-    Var(val=0, der=1)
+    :examples:
+    >>> import numpy as np
+    >>> from src.autodiff.AD_Object import Var
+    >>> from src.autodiff.AD_BasicMath import ln
+    >>> ln(Var(np.e, derivative=np.e))
+    Var(val=1, der=1)
     """
-    return Var(1)
-    
+    if (x.val < 0):
+        raise ValueError("Ln undefined at negative values")    
+    newX = Var(np.log(x.val), derivative=1/(x.val)*x.der)
+    return newX
+  
 def sqrt(x):
     """Returns a new Var with sqrt applied to the input Var x
     
@@ -60,8 +74,10 @@ def sqrt(x):
     :rtype: AD_Object.Var
     
     :example:
+    >>> from src.autodiff.AD_BasicMath import sqrt
+    >>> from src.autodiff.AD_Object import Var
     >>> sqrt(Var(4))
-    Var(val=2, der=0.25)
+    Var(val=2.0, der=0.25)
     """
     if x.val < 0:
         raise ValueError('Imaginary not implemented, can only sqrt positive numbers')
@@ -80,8 +96,10 @@ def sin(x):
     :rtype: AD_Object.Var
     
     :example:
+    >>> from src.autodiff.AD_BasicMath import sin
+    >>> from src.autodiff.AD_Object import Var
     >>> sin(Var(0))
-    Var(val=0, der=1)
+    Var(val=0.0, der=1.0)
     """
     newX = Var(np.sin(x.val), derivative=np.cos(x.val)*x.der)
     return newX
@@ -95,8 +113,10 @@ def cos(x):
     :rtype: AD_Object.Var
     
     :example:
+    >>> from src.autodiff.AD_BasicMath import cos
+    >>> from src.autodiff.AD_Object import Var
     >>> cos(Var(0))
-    Var(val=1, der=0)
+    Var(val=1.0, der=-0.0)
     """
     newX = Var(np.cos(x.val), derivative=-np.sin(x.val)*x.der)
     return newX
@@ -111,11 +131,10 @@ def tan(x):
     :rtype: AD_Object.Var
 
     :example:
+    >>> from src.autodiff.AD_BasicMath import tan
+    >>> from src.autodiff.AD_Object import Var
     >>> tan(Var(0, derivative=1))
-    Var(val=0, der=1)
-    >>> tan(Var(3*(np.pi)/2, derivative=1))
-    ValueError: Tangent undefined at odd multiples of pi/2
-    val=3*pi/2
+    Var(val=0.0, der=1.0)
     """
     if (x.val % np.pi > 0) and (x.val % (np.pi/2) == 0):
         raise ValueError(f"Tangent undefined at odd multiples of pi/2\n val={int(x.val/(np.pi/2))}*pi/2")

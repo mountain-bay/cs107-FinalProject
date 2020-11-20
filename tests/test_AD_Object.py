@@ -70,15 +70,12 @@ def test_sub():
 
 
 def test_rsub():
-    numsub = 2-x
-    fltsub = 1.0-x
-    varsub = y - x
+    numsub = 2 - x
+    fltsub = 1.0 - x
     assert numsub.val == 2, AssertionError('rSub num val fail')
     assert numsub.der == -1, AssertionError('rSub num der fail')
     assert fltsub.val == 1, AssertionError('rSub flt val fail')
     assert fltsub.der == -1, AssertionError('rSub flt der fail')
-    assert varsub.val == (y.val - x.val), AssertionError('rSub var val fail')
-    assert varsub.der == (y.der - x.der), AssertionError('rSub var der fail')
 
 
 def test_mul():
@@ -120,17 +117,12 @@ def test_truediv():
 
 
 def test_rtruediv():
-    nummul = y.__rtruediv__(2)
-    fltmul = y.__rtruediv__(1.0)
-    varmul = y.__rtruediv__(x)
+    nummul = 2 / y
+    fltmul = 1.0 / y
     assert nummul.val == 2, AssertionError('rtruediv num val fail')
     assert nummul.der == -2, AssertionError('rtruediv num der fail')
     assert fltmul.val == 1, AssertionError('rtruediv flt val fail')
     assert fltmul.der == -1, AssertionError('rtruediv flt der fail')
-    assert varmul.val == (
-        x.val / y.val), AssertionError('rtruediv var val fail')
-    assert varmul.der == (
-        x.der / y.der), AssertionError('rtruediv var der fail')
 
 
 def test_operation_checks():
@@ -179,7 +171,7 @@ def test_operation_checks():
         raise AssertionError(f"faildiv wrong exception {e} fail")
     # try bad rtruediv value
     try:
-        faildiv = x.__rtruediv__('str')
+        faildiv = 'str' / y
     except ValueError:
         pass
     except Exception as e:
@@ -187,13 +179,6 @@ def test_operation_checks():
      # try bad div 0
     try:
         faildiv = x / 0
-    except ValueError:
-        pass
-    except Exception as e:
-        raise AssertionError(f"faildiv wrong exception {e} fail")
-     # try bad rdiv 0
-    try:
-        faildiv = Var(0).__rtruediv__(0)
     except ValueError:
         pass
     except Exception as e:
@@ -233,15 +218,6 @@ def test_rpow_num():
     assert rpow3.der == 3**2 * np.log(3), AssertionError("3**2 der fail")
 
 
-def test_rpow_var():
-    xy = newx**y
-    yx = y**newx
-    assert xy.val == y.__rpow__(newx).val, AssertionError("var pow val fail")
-    assert xy.der == y.__rpow__(newx).der, AssertionError("var pow derfail")
-    assert yx.der == newx.__rpow__(y).der, AssertionError("var pow val fail")
-    assert yx.val == newx.__rpow__(y).val, AssertionError("var pow der fail")
-
-
 def test_pow_fail():
     # 0^x der fail
     try:
@@ -256,6 +232,18 @@ def test_pow_fail():
     # Type checking
     try:
         y**('hello')
+    except ValueError:
+        pass
+    except Exception as e:
+        raise AssertionError(f"bad type exception {e}")
+    else:
+        raise AssertionError("bad type fail")
+
+
+def test_rpow_fail():
+    # Type checking
+    try:
+        'str' ** x
     except ValueError:
         pass
     except Exception as e:
