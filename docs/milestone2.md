@@ -167,16 +167,7 @@ What classes will you implement?
 
 What method and name attributes will your classes have?
 
-    The class that takes in the derivative and value (AD_Object) will have a variety of methods which would conduct basic calculations, as well as the following: 
-             - Jacobian
-            This will calculate the Jacobian matrix for the given AD Object.
-            - Forward
-            This will calculate AD in forward mode.
-            - Reverse
-            This will calculate AD in reverse mode.
-            - Mixed
-            This will calculate AD in mixed mode.
-    The class that contains basic arithmetic operations (AD_BasicMath) would contain methods to sum, subtract, multiply, divide, exponential, and trig functions as well.
+    The class AD_Object will create our Auto Differentiation Object and have all operation overload for basic functions such as addition, subtraction, multiplication, division, and power. The class AD_Num contains trigonometric functions, exponential functions, and more. 
 
 What external dependencies will you rely on?
 
@@ -187,6 +178,8 @@ How will you deal with elementary functions like sin, sqrt, log, and exp (and al
     These elementary functions will be contained within their own module, AD_BasicMath.
     
 ## Future Features
-	For our next step, we propose to incorporate a reverse mode implementation into our project. While the forward mode is efficient for functions with few inputs and many outputs, tthe reverse mode is ideal for functions with many inputs and few outputs. Part of our future features thus will include taking in vector inputs and returning vector outputs. 
+	For our next step, we propose to incorporate a reverse mode implementation into our project. While the forward mode is efficient for functions with few inputs and many outputs, the reverse mode is ideal for functions with many inputs and few outputs. Part of our future features thus will include taking in vector inputs and returning vector outputs. 
 
-    The reverse mode is composed of two steps: a forward pass and a reverse pass. The forward pass evaluates the elementary functions and stores the partial derivative, but does not do the chain rule. The reverse pass begin with evaluating Vbar = (df/dVn) = 1, because f = Vn. It then works backwards to evaluate the derivatives, adding values when a node has multiple children (implementing the chain rule). Note: while the forward mode calculates the Jacobian-vector product, the reverse mode actually calculates the Jacobian transpose-product.
+    The reverse mode is composed of two steps: a forward pass and a reverse pass. The forward pass evaluates the elementary functions and stores the partial derivative, but does not do the chain rule. The reverse pass begin with evaluating Vbar = (df/dVn) = 1, because f = Vn. It then works backwards to evaluate the derivatives, adding values when a node has multiple children (implementing the chain rule). Note: while the forward mode calculates the Jacobian-vector product, the reverse mode actually calculates the Jacobian transpose-product. Currently, we anticipate doing this by constructing a graph of nodes that represents our original expression as the program runs. This means an input x and/or y would be the root of such a graph, and we would now think of Var as creating nodes that have children. Whenever a new expression is built out of current nodes, that new expression would be a child of each of those current nodes. This would also save contributing weights for gradient computation later on. We would then propagate derivatives using recursion.
+    
+    In addition, we want to add the ability to allow for vector inputs.
