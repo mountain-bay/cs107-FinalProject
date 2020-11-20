@@ -36,8 +36,8 @@ def log(x):
     >>> import numpy as np
     >>> from src.autodiff.AD_Object import Var
     >>> from src.autodiff.AD_BasicMath import log
-    >>> log(Var(10, derivative=np.log(10)))
-    Var(val=1, der=1)
+    >>> log(Var(1, derivative=np.log(10)))
+    Var(val=0.0, der=0.9999999999999999)
     """
     if (x.val < 0):
         raise ValueError("Log undefined at negative values")    
@@ -57,7 +57,7 @@ def ln(x):
     >>> from src.autodiff.AD_Object import Var
     >>> from src.autodiff.AD_BasicMath import ln
     >>> ln(Var(np.e, derivative=np.e))
-    Var(val=1, der=1)
+    Var(val=1.0, der=1.0)
     """
     if (x.val < 0):
         raise ValueError("Ln undefined at negative values")    

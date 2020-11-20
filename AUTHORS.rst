@@ -2,4 +2,7 @@
 Contributors
 ============
 
-* zacharyellison <zellison@college.harvard.edu>
+* Zachary Ellison
+* Nicole Araya
+* Ninon Becquart
+* Kaiwen Li
