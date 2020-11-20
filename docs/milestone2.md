@@ -187,4 +187,6 @@ How will you deal with elementary functions like sin, sqrt, log, and exp (and al
     These elementary functions will be contained within their own module, AD_BasicMath.
     
 ## Future Features
-	For our next step, we propose to incorporate reverse mode into our project.
+	For our next step, we propose to incorporate a reverse mode implementation into our project. While the forward mode is efficient for functions with few inputs and many outputs, tthe reverse mode is ideal for functions with many inputs and few outputs. Part of our future features thus will include taking in vector inputs and returning vector outputs. 
+
+    The reverse mode is composed of two steps: a forward pass and a reverse pass. The forward pass evaluates the elementary functions and stores the partial derivative, but does not do the chain rule. The reverse pass begin with evaluating Vbar = (df/dVn) = 1, because f = Vn. It then works backwards to evaluate the derivatives, adding values when a node has multiple children (implementing the chain rule). Note: while the forward mode calculates the Jacobian-vector product, the reverse mode actually calculates the Jacobian transpose-product.
