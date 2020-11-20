@@ -12,3 +12,4 @@ ignore_errors = True
 omit =
     setup.py
     tests/*
+    src/autodiff/_version.py
