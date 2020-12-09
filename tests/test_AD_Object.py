@@ -266,3 +266,10 @@ def test_multiple_operations():
     assert fy.val == 1**2 + 2 + \
         5, AssertionError("Operations combined val fail")
     assert fy.der == (2*1) + 2, AssertionError("Operations combined der fail")
+
+def test_eq():
+    assert(Var(1) == Var(1))
+    assert(not Var(1) == Var(2))
+
+def test_ne():
+    assert(x != y)
