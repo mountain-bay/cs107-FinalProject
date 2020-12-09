@@ -1,5 +1,5 @@
 import numpy as np
-from autodiff.AD_Object import Var
+from mountainbay_autodiff.AD_Object import Var
 
 # Returning a new Var for each elementary function
 # exponential
