@@ -1,6 +1,6 @@
 [run]
 branch = True
-source = autodiff
+source = mountainbay_autodiff
 
 [report]
 exclude_lines =
@@ -13,5 +13,5 @@ omit =
     setup.py
     versioneer.py
     tests/*
-    autodiff/_version.py
-    autodiff/__init__.py
+    mountainbay_autodiff/_version.py
+    mountainbay_autodiff/__init__.py
