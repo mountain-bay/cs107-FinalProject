@@ -1,6 +1,6 @@
 [run]
 branch = True
-source = src
+source = autodiff
 
 [report]
 exclude_lines =
@@ -13,4 +13,5 @@ omit =
     setup.py
     versioneer.py
     tests/*
-    src/autodiff/_version.py
+    autodiff/_version.py
+    autodiff/__init__.py

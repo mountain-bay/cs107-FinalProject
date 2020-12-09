@@ -9,7 +9,7 @@ BUILDDIR      = ../build/sphinx/
 AUTODOCDIR    = api
 AUTODOCBUILD  = sphinx-apidoc
 PROJECT       = cs107-FinalProject
-MODULEDIR     = ../src/autodiff
+MODULEDIR     = ../autodiff
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $?), 1)
