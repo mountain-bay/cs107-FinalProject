@@ -1,6 +1,6 @@
 # import numpy as np
 import numpy as np
-from src.autodiff.AD_Object import Var
+from autodiff.AD_Object import Var
 
 try:
     x = Var(0, derivative=1)
