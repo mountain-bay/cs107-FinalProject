@@ -21,4 +21,4 @@ except VersionConflict:
 
 
 if __name__ == "__main__":
-    setup(version=versioneer.get_version(), cmdclass=versioneer.get_cmdclass(), use_pyscaffold=True)
+    setup(version=versioneer.get_version(), cmdclass=versioneer.get_cmdclass(), use_pyscaffold=True, packages=['mountainbay_autodiff'])
