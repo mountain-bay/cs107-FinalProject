@@ -135,3 +135,14 @@ class Var:
             raise ValueError(
                 "Please use a Var type or num type for operations on Var")
         return Var(other, derivative=0).__pow__(self)
+
+    def __eq__(self, other):
+        if (isinstance(other, int) or isinstance(other, float)):
+            return self.der == 0 and self.val == other
+        elif isinstance(other, Var):
+            return self.der == other.der and self.val == other.val
+        else:
+            raise ValueError("Please use a Var type or num type for operations on Var")
+    
+    def __ne__(self, other):
+        return not self.__eq__(other)
