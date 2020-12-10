@@ -84,7 +84,7 @@ def sqrt(x):
     if x.val < 0:
         raise ValueError('Imaginary not implemented, can only sqrt positive numbers')
     try:
-        newX = Var(x.val**(0.5), derivative=0.5*(x.val**(-0.5))*x.der)
+        newX = Var(x.val**(0.5), derivative=x.der*0.5/(x.val**(0.5)))
     except ZeroDivisionError:
         newX = Var(0)
     return newX
@@ -138,8 +138,16 @@ def tan(x):
     >>> tan(Var(0, derivative=1))
     Var(val=0.0, der=1.0)
     """
-    if (x.val % np.pi > 0) and (x.val % (np.pi/2) == 0):
-        raise ValueError(f"Tangent undefined at odd multiples of pi/2\n val={int(x.val/(np.pi/2))}*pi/2")
+    und = False
+    try:
+        s = [((c % np.pi), (c % (np.pi/2))) for c in x.val]
+        for i in s:
+            if i[0] > 1 and i[1] == 0:
+                und = True
+    except:
+        und = (x.val % np.pi > 0) and (x.val % (np.pi/2) == 0)
+    if und:
+        raise ValueError(f"Tangent undefined at odd multiples of pi/2\n val={x.val}")
     newX = Var(np.tan(x.val), derivative=(1/np.cos(x.val)**2)*x.der)
     return newX
 

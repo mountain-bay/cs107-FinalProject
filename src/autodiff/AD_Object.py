@@ -21,11 +21,11 @@ class Var:
     """
 
     def __init__(self, val, **kwargs):
-        self.val = val
-        if 'derivative' in kwargs and (isinstance(kwargs['derivative'], int) or isinstance(kwargs['derivative'], float)):
+        self.val = np.array(val)
+        if 'derivative' in kwargs:
             self.der = kwargs['derivative']
         else:
-            self.der = 1
+            self.der = np.ones(np.shape(val))
         self.args = kwargs
 
     def __repr__(self):
@@ -122,7 +122,10 @@ class Var:
         except AttributeError:
             if isinstance(other, int) or isinstance(other, float):
                 new_val = self.val ** other
-                new_der = other * (self.val ** (other - 1))
+                try:
+                    new_der = other * (self.val ** (other - 1))
+                except:
+                    new_der = 0
             else:
                 raise ValueError(
                     "Please use a numtype or Var type for the power")

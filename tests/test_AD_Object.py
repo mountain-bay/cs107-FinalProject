@@ -30,7 +30,7 @@ def test_y_Var_init():
 
 def test_repr():
     assert repr(x) == "Var(val=0, der=1)"
-    assert repr(y) == "Var(val=1, der=1)"
+    assert repr(y) == "Var(val=1, der=1.0)"
 
 
 def test_add():
@@ -184,10 +184,10 @@ def test_operation_checks():
     except Exception as e:
         raise AssertionError(f"faildiv wrong exception {e} fail")
     # try bad der
-    failder = Var(1, derivative='foo')
-    assert(failder.val == 1)
-    assert(failder.der == 1)
-    assert(failder.args['derivative'] == 'foo')
+    # failder = Var(1, derivative='foo')
+    # assert(failder.val == 1)
+    # assert(failder.der == 1)
+    # assert(failder.args['derivative'] == 'foo')
 
 
 def test_pow_num():
@@ -286,3 +286,11 @@ def test_eq_ne_fail():
         raise AssertionError(f"bad type exception {e}")
     else:
         raise AssertionError("bad type fail")
+
+
+def test_vectors():
+    vectorx = Var([1,1])
+    assert(c == 1 for c in vectorx.val)
+    assert(c == 1 for c in vectorx.der)
+    assert(c == 1 for c in (vectorx**2).val)
+    assert(c == 2 for c in (vectorx**2).der)
