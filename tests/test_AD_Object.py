@@ -286,3 +286,13 @@ def test_eq_ne_fail():
         raise AssertionError(f"bad type exception {e}")
     else:
         raise AssertionError("bad type fail")
+
+
+def test_rder():
+    x.rder = None
+    assert(x.rder == None)
+    rder_val = x.revder()
+
+    assert(rder_val != None)
+    assert(rder_val == sum(weight * var.revder()
+                                  for weight, var in x.children))

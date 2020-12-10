@@ -89,7 +89,7 @@ class Var:
 
     def __mul__(self, other):
         try:
-            z = Var(self.val * other.val, derivative = self.der * other.val + self.val * other.der)
+            z = Var(self.val * other.val, derivative = (self.der * other.val + self.val * other.der))
             self.children.append((other.val, z))
             other.children.append((self.val, z))
         except AttributeError:
@@ -106,7 +106,7 @@ class Var:
     
     def __truediv__(self, other):  # no div in Python, truediv
         try:
-            z = Var((self.val / other.val), ((self.der * other.val -
+            z = Var((self.val / other.val), derivative=((self.der * other.val -
                        self.val * other.der)/other.val**2))
             self.children.append((1 / other.val, z))
             other.children.append(( -1  * self.val / (other.val**2), z))
@@ -114,7 +114,7 @@ class Var:
         except AttributeError:
             if isinstance(other, int) or isinstance(other, float):
                 try:
-                    z = Var((self.val / other), (self.der / other))
+                    z = Var((self.val / other), derivative=(self.der / other))
                 except ZeroDivisionError:
                     raise ValueError("Cannot divide by 0")
             else:
