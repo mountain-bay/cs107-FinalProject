@@ -22,7 +22,7 @@ def exp(x):
     newX = Var(np.exp(x.val), derivative=x.der*(np.exp(x.val)))
     return newX
   
-def log(x):
+def log(x, base=10):
     """Returns a new Var with log_10 appled to input Var x
     
     :param x: object on which log is applied, required
@@ -38,10 +38,12 @@ def log(x):
     >>> from autodiff.AD_BasicMath import log
     >>> log(Var(1, derivative=np.log(10)))
     Var(val=0.0, der=0.9999999999999999)
+    >>> log(Var(1), 2)
+    Var(val=0.0, der=1/np.log(2))
     """
     if (x.val < 0):
         raise ValueError("Log undefined at negative values")    
-    newX = Var(np.log10(x.val), derivative=1/(x.val*np.log(10))*x.der)
+    newX = Var(np.log(x.val)/np.log(base), derivative=1/(x.val*np.log(base))*x.der)
     return newX
 
 def ln(x):
