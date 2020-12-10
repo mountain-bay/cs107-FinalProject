@@ -266,3 +266,23 @@ def test_multiple_operations():
     assert fy.val == 1**2 + 2 + \
         5, AssertionError("Operations combined val fail")
     assert fy.der == (2*1) + 2, AssertionError("Operations combined der fail")
+
+
+def test_eq_ne():
+    assert(Var(1) == Var(1))
+    assert(Var(1, derivative=0) == 1)
+    assert(Var(1, derivative=0) == 1.0)
+    assert(Var(2) != Var(1))
+    assert(Var(2) != 2)
+    assert(Var(2) != 2.0)
+
+
+def test_eq_ne_fail():
+    try:
+        x == 'x'
+    except ValueError:
+        pass
+    except Exception as e:
+        raise AssertionError(f"bad type exception {e}")
+    else:
+        raise AssertionError("bad type fail")
