@@ -1,6 +1,6 @@
 import numpy as np
 from src.autodiff.AD_Object import Var
-from src.autodiff.AD_BasicMath import sin, cos, tan, ln, log, sqrt, exp
+from src.autodiff.AD_BasicMath import sin, cos, tan, ln, log, sqrt, exp, csc, sec, cot, arcsin, arccos, arctan
 
 try:
     x = Var(0, derivative=1)
@@ -109,4 +109,76 @@ def test_exp():
     exp1 = exp(Var(1))
     assert exp1.val == np.e, AssertionError("exp(1) val fail")
     assert exp1.der == np.e, AssertionError("exp(1) der fail")
+
+
+def test_csc():
+    try:
+       cscx = csc(x)
+    except Exception as e:
+        print(str(e))
+
+def test_csc_undef():
+    new = Var(np.pi)
+    try:
+        csc_new = csc(new)
+    except Exception as e:
+        assert(isinstance(e, ValueError))
+
+def test_sec():
+    try:
+       secx = sec(x)
+    except Exception as e:
+        print(str(e))
+
+def test_sec_undef():
+    new = Var(np.pi/2)
+    try:
+        sec_new = sec(new)
+    except Exception as e:
+        assert(isinstance(e, ValueError))
+
+def test_cot():
+    try:
+       cotx = cot(x)
+    except Exception as e:
+        print(str(e))
+
+def test_cot_undef():
+    new = Var(np.pi)
+    try:
+        cot_new = cot(new)
+    except Exception as e:
+        assert(isinstance(e, ValueError))
+    
+def test_arcsin():
+    try:
+       arcsinx = arcsin(x)
+    except Exception as e:
+        print(str(e))
+
+def test_arcsin_undef():
+    new = Var(np.pi)
+    try:
+        arcsin_new = arcsin(new)
+    except Exception as e:
+        assert(isinstance(e, ValueError))
+
+def test_arccos():
+    try:
+       arccosx = arccos(x)
+    except Exception as e:
+        print(str(e))
+
+def test_arccos_undef():
+    new = Var(np.pi)
+    try:
+        arccos_new = arccos(new)
+    except Exception as e:
+        assert(isinstance(e, ValueError))
+
+def test_arctan():
+    try:
+       arctanx = arctan(x)
+    except Exception as e:
+        print(str(e))
 
