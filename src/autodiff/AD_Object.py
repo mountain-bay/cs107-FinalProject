@@ -12,13 +12,22 @@ class Var:
     :return: Var object with val and der attributes
     :rtype: AD_Object.Var
     
-    :example:
+    :example forward mode:
     >>> from src.autodiff.AD_Object import Var
     >>> x = Var(1, derivative=2)
     >>> print(x)
     Var(val=1, der=2)
     >>> x**2 + 2*x + 1
     Var(val=4, der=6)
+    
+    :example reverse mode:
+    >>> x = Var(0.5)
+    >>> y = Var(4.2)
+    >>> a = x * y 
+    >>> a.rder = 1.0
+    >>> print("∂a/∂x = {}".format(x.revder())) 
+    ∂a/∂x = 4.2
+    
     """
 
     def __init__(self, val, **kwargs):
