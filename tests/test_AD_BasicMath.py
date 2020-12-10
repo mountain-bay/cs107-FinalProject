@@ -59,6 +59,7 @@ def test_ln():
        lnx = ln(x)
     except Exception as e:
         print(str(e) + 'ln val at 0 fail')
+    # assert(lnx.val == 0)
 
 def test_ln_undef():
     new = Var(-3)
