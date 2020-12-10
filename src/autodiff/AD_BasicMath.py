@@ -23,7 +23,7 @@ def exp(x):
     return newX
   
 def log(x, base=10):
-    """Returns a new Var with log_10 appled to input Var x
+    """Returns a new Var with log_base appled to input Var x, default base is 10
     
     :param x: object on which log is applied, required
     :type x: AD_Object.Var
