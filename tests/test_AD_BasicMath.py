@@ -1,6 +1,6 @@
 import numpy as np
 from src.autodiff.AD_Object import Var
-from src.autodiff.AD_BasicMath import sin, cos, tan, ln, log, sqrt, exp, sigmoid,  csc, sec, cot, arcsin, arccos, arctan
+from src.autodiff.AD_BasicMath import sin, cos, tan, ln, log, sqrt, exp, sigmoid,  csc, sec, cot, arcsin, arccos, arctan, sinh, cosh, tanh
 
 try:
     x = Var(0, derivative=1)
@@ -224,3 +224,25 @@ def test_sigmoid():
     x = sigmoid(Var(0, derivative=10))
     assert x.val == 0.5
     assert x.der == 2.5
+
+def test_sinh():
+    try:
+       sinhx = sinh(x)
+       assert sinhx.val == 0
+    except Exception as e:
+        print(str(e))
+
+
+def test_cosh():
+    try:
+       coshx = cosh(x)
+       assert coshx.val == 1
+    except Exception as e:
+        print(str(e))
+
+def test_tanh():
+    try:
+       tanhx = tanh(x)
+       assert tanhx.val == 0
+    except Exception as e:
+        print(str(e))
