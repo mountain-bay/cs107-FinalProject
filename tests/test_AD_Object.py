@@ -194,12 +194,15 @@ def test_pow_num():
     pow3 = newx**3
     pow2 = y**2
     pow0 = newx**0
+    x0 = Var(0, derivative=0)**1
     assert pow3.val == 2**3, AssertionError("2**3 val fail")
     assert pow3.der == 12, AssertionError("2**3 der fail")
     assert pow2.val == 1, AssertionError("1**2 val fail")
     assert pow2.der == 2, AssertionError("1**2 der fail")
     assert pow0.val == 1, AssertionError("2**0 val fail")
     assert pow0.der == 0, AssertionError("2**0 der fail")
+    assert x0.val == 0, AssertionError("0**1 val fail")
+    assert x0.der == 0, AssertionError("0**1 der fail")
 
 
 def test_pow_var():

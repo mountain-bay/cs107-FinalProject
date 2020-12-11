@@ -151,9 +151,7 @@ class Var:
             # applying exp rule
             # i.e. a^b = e^(b*log(a)) => a^b*((a'*b)/a + b'*log(a))
             if self.val == 0 and other.val <= 0:
-                raise ValueError(
-                    f"Cannot get derivative of 0 raised to {other.val}"
-                )
+                raise ValueError(f"Cannot get derivative of 0 raised to {other.val}")
 
             new_val = self.val ** other.val
             if self.val == 0:
