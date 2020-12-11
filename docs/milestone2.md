@@ -170,7 +170,6 @@ This package will be distributed on PyPI, which allows users to upload packages.
 
 ## Implementation
 
-<<<<<<< HEAD
 
 # Core data structures:
 
@@ -179,7 +178,7 @@ The core data structures we anticipate using are matrices (ex. Jacobian), vector
 # What classes will you implement?
 
 We implemented a class that takes in a derivative and a value as input, and outputs an object for every calculation. We also implemented a class containing basic arithmetic operations.
-
+ 
 # What method and name attributes will your classes have?
 
 The class AD_Object will create our Auto Differentiation Object and have all operation overload for basic functions such as addition, subtraction, multiplication, division, and power. The class AD_Num contains trigonometric functions, exponential functions, and more.
