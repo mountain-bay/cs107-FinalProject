@@ -176,8 +176,8 @@ def csc(x):
     :rtype: AD_Object.Var
     
     :example:
-    >>> from src.autodiff.AD_BasicMath import cos
-    >>> from src.autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import cos
+    >>> from autodiff.AD_Object import Var
     >>> csc(Var(np.pi/2))
     Var(val=1.0, der=6.123234e-17)
     """
@@ -198,8 +198,8 @@ def sec(x):
     :rtype: AD_Object.Var
     
     :example:
-    >>> from src.autodiff.AD_BasicMath import cos
-    >>> from src.autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import cos
+    >>> from autodiff.AD_Object import Var
     >>> sec(Var(2*np.pi/3))
     Var(val=-2.0, der=3.46410161514)
     """
@@ -220,8 +220,8 @@ def cot(x):
     :rtype: AD_Object.Var
     
     :example:
-    >>> from src.autodiff.AD_BasicMath import cos
-    >>> from src.autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import cos
+    >>> from autodiff.AD_Object import Var
     >>> cot(Var(np.pi/4))
     Var(val=1.0, der=-2.0)
     """
@@ -242,8 +242,8 @@ def arcsin(x):
     :rtype: AD_Object.Var
     
     :example:
-    >>> from src.autodiff.AD_BasicMath import cos
-    >>> from src.autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import cos
+    >>> from autodiff.AD_Object import Var
     >>> arcsine(Var(0))
     Var(val=0, der=1.0)
     """
@@ -263,8 +263,8 @@ def arccos(x):
     :rtype: AD_Object.Var
     
     :example:
-    >>> from src.autodiff.AD_BasicMath import cos
-    >>> from src.autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import cos
+    >>> from autodiff.AD_Object import Var
     >>> arccos(Var(np.pi/2))
     Var(val=0, der=1.0)
     """
@@ -284,8 +284,8 @@ def arctan(x):
     :rtype: AD_Object.Var
     
     :example:
-    >>> from src.autodiff.AD_BasicMath import cos
-    >>> from src.autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import cos
+    >>> from autodiff.AD_Object import Var
     >>> arctan(Var(0))
     Var(val=0, der=1.0)
     """
@@ -324,8 +324,8 @@ def sinh(x):
     :rtype: AD_Object.Var
 
     :example:
-    >>> from src.autodiff.AD_BasicMath import sinh
-    >>> from src.autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import sinh
+    >>> from autodiff.AD_Object import Var
     >>> sinh(Var(0))
     Var(val=0, der=1.0)
     """
@@ -343,8 +343,8 @@ def cosh(x):
     :rtype: AD_Object.Var
 
     :example:
-    >>> from src.autodiff.AD_BasicMath import cosh
-    >>> from src.autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import cosh
+    >>> from autodiff.AD_Object import Var
     >>> cosh(Var(0))
     Var(val=1.0, der=0)
     """
@@ -361,8 +361,8 @@ def tanh(x):
     :rtype: AD_Object.Var
 
     :example:
-    >>> from src.autodiff.AD_BasicMath import tanh
-    >>> from src.autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import tanh
+    >>> from autodiff.AD_Object import Var
     >>> tanh(Var(0))
     Var(val=0, der=1.0)
     """
