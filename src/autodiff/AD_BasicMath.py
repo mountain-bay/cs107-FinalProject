@@ -290,9 +290,8 @@ def arctan(x):
     Var(val=0, der=1.0)
     """
     newX = Var(np.arctan(x.val), der = 1/(1+x.val**2)*x.der)
-    x.children.append(( 1 / (1 + x.val ** 2))
-    return newX
-
+    x.children.append(( 1 / (1 + x.val ** 2), newX ))
+    return newX                    
 
 def sigmoid(x):
     """Returns a new Var with sigmoid/logistic function applied to the input Var x
