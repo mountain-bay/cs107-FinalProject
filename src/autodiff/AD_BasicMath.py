@@ -177,3 +177,24 @@ def arccos(x):
 
 def arctan(x):
     raise NotImplementedError
+
+
+def sigmoid(x):
+    """Returns a new Var with sigmoid/logistic function applied to the input Var x
+    Our definition of sigmoid/logistic function is 1 / (1 + e^(-x))
+
+    :param x: object on which sigmoid/logistic function is applied, required
+    :type x: AD_Object.Var
+    :return: new object with sigmoid/logistic function applied to input
+    :rtype: AD_Object.Var
+
+    :example:
+    >>> from autodiff.AD_BasicMath import sigmoid
+    >>> from autodiff.AD_Object import Var
+    >>> sigmoid(Var(0))
+    Var(val=0.5, der=0.25)
+    """
+    sigmoid_val = 1 / (1 + np.exp(-x.val))
+    sigmoid_der = sigmoid_val * (1 - sigmoid_val) * x.der
+    newX = Var(sigmoid_val, derivative=sigmoid_der)
+    return newX
