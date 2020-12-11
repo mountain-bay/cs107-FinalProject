@@ -117,7 +117,7 @@ def sin(x):
     Var(val=0.0, der=1.0)
     """
     newX = Var(np.sin(x.val), derivative=np.cos(x.val) * x.der)
-    x.children.append((np.cos(x.value), newX))
+    x.children.append((np.cos(x.val), newX))
 
     return newX
 
