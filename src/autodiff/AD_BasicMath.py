@@ -21,6 +21,7 @@ def exp(x):
     Var(val=1.0, der=1.0)
     """
     newX = Var(np.exp(x.val), derivative=x.der * (np.exp(x.val)))
+    x.children.append((np.exp(x.val), newX))
     return newX
 
 
@@ -48,6 +49,8 @@ def log(x, base=10):
     newX = Var(
         np.log(x.val) / np.log(base), derivative=1 / (x.val * np.log(base)) * x.der
     )
+    x.children.append((1/(x.val*np.log(base)), newX))
+
     return newX
 
 
@@ -69,6 +72,8 @@ def ln(x):
     if x.val < 0:
         raise ValueError("Ln undefined at negative values")
     newX = Var(np.log(x.val), derivative=1 / (x.val) * x.der)
+    x.children.append((1/(x.val), newX))
+
     return newX
 
 
@@ -91,6 +96,7 @@ def sqrt(x):
         raise ValueError("Imaginary not implemented, can only sqrt positive numbers")
     try:
         newX = Var(x.val ** (0.5), derivative=0.5 * (x.val ** (-0.5)) * x.der)
+        x.children.append((0.5 * (x.val ** (-0.5)), newX))
     except ZeroDivisionError:
         newX = Var(0)
     return newX
@@ -111,6 +117,8 @@ def sin(x):
     Var(val=0.0, der=1.0)
     """
     newX = Var(np.sin(x.val), derivative=np.cos(x.val) * x.der)
+    x.children.append((np.cos(x.value), newX))
+
     return newX
 
 
@@ -129,6 +137,8 @@ def cos(x):
     Var(val=1.0, der=-0.0)
     """
     newX = Var(np.cos(x.val), derivative=-np.sin(x.val) * x.der)
+    x.children.append((-np.sin(x.val), newX))
+
     return newX
 
 
@@ -152,6 +162,8 @@ def tan(x):
             f"Tangent undefined at odd multiples of pi/2\n val={int(x.val/(np.pi/2))}*pi/2"
         )
     newX = Var(np.tan(x.val), derivative=(1 / np.cos(x.val) ** 2) * x.der)
+    x.children.append(((1/np.cos(x.val)**2), newX))
+
     return newX
 
 
@@ -172,6 +184,8 @@ def csc(x):
     if (x.val == 0) or (x.val % (np.pi) == 0):
         raise ValueError("Cosecant undefined at 0 and multiples of pi")
     newX = Var(1/np.sin(x.val), derivative=-1/np.tan(x.val)*(1/np.sin(x.val))*x.der)
+    x.children.append(((-1 / np.tan(x.val)) * (1 / np.sin(x.val)), newX))
+
     return newX
 
 
@@ -192,6 +206,8 @@ def sec(x):
     if (x.val % np.pi > 0) and (x.val % (np.pi/2) == 0):
         raise ValueError("Secant undefined at odd multiples of pi/2")
     newX = Var(1/np.cos(x.val), derivative = np.tan(x.val)/np.cos(x.val)*x.der)
+    x.children.append((np.tan(x.val) / np.cos(x.val), newX))
+    
     return newX
 
 
@@ -212,6 +228,8 @@ def cot(x):
     if (x.val == 0) or (x.val % (np.pi) == 0):
         raise ValueError("Cotangent undefined at 0 and multiples of pi")
     newX = Var(1/np.tan(x.val), derivative = -1/(np.sin(x.val)**2)*x.der)
+    x.children.append((-1 / (np.sin(x.val) ** 2), newX))
+    
     return newX
 
 
@@ -232,6 +250,7 @@ def arcsin(x):
     if (x.val >= 1) or (x.val < -1):
         raise ValueError("Arcsine undefined at x=1, values greater than 1 or less than -1")
     newX = Var(np.arcsin(x.val), derivative = 1/np.sqrt(1-x.val**2)*x.der)
+    x.children.append(( 1 / np.sqrt(1-x.val ** 2), newX ))
     return newX
 
 
@@ -252,6 +271,7 @@ def arccos(x):
     if (x.val >= 1) or (x.val < -1):
         raise ValueError("Arccosine undefined at x=1, values greater than 1 or less than -1")
     newX = Var(np.arccos(x.val), derivative = -1/np.sqrt(1-x.val**2)*x.der)
+    x.children.append(( -1 / np.sqrt(1 - x.val ** 2), newX ))
     return newX
 
 
@@ -270,6 +290,7 @@ def arctan(x):
     Var(val=0, der=1.0)
     """
     newX = Var(np.arctan(x.val), der = 1/(1+x.val**2)*x.der)
+    x.children.append(( 1 / (1 + x.val ** 2))
     return newX
 
 
@@ -291,4 +312,5 @@ def sigmoid(x):
     sigmoid_val = 1 / (1 + np.exp(-x.val))
     sigmoid_der = sigmoid_val * (1 - sigmoid_val) * x.der
     newX = Var(sigmoid_val, derivative=sigmoid_der)
+    x.children.append(( sigmoid_val * (1 - sigmoid_val) , newX ))
     return newX
