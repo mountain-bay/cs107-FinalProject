@@ -142,10 +142,20 @@ class Var:
         return self.__mul__(-1)
 
     def __pow__(self, other):
+        # If other is an int or float, make it a Var with derivative of 0
+        # Retry afterwards
+        if isinstance(other, int) or isinstance(other, float):
+            return self.__pow__(Var(other, derivative=0))
+
         try:
-            new_val = self.val ** other.val
             # applying exp rule
             # i.e. a^b = e^(b*log(a)) => a^b*((a'*b)/a + b'*log(a))
+            if self.val == 0 and other.val <= 0:
+                raise ValueError(
+                    f"Cannot get derivative of 0 raised to {other.val}"
+                )
+
+            new_val = self.val ** other.val
             if self.val == 0:
                 new_der = other.val * (self.val ** (other.val - 1)) * self.der + (
                     self.val ** other.val
@@ -155,11 +165,9 @@ class Var:
                     other.val * (self.val ** (other.val - 1)) * self.der
                     + (self.val ** other.val) * np.log(np.abs(self.val)) * other.der
                 )
+
         except AttributeError:
-            if isinstance(other, int) or isinstance(other, float):
-                return self.__pow__(Var(other, derivative=0))
-            else:
-                raise ValueError("Please use a numtype or Var type for the power")
+            raise ValueError("Please use a numtype or Var type for the power")
 
         return Var(new_val, derivative=new_der)
 

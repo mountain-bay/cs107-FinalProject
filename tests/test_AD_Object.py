@@ -219,6 +219,16 @@ def test_rpow_num():
 
 
 def test_pow_fail():
+    # 0^x der fail
+    try:
+        x**-1
+    except ValueError:
+        pass
+    except Exception as e:
+        raise AssertionError(f"bad der exception {e}")
+    else:
+        raise AssertionError("bad der fail")
+
     # Type checking
     try:
         y**('hello')
@@ -280,7 +290,7 @@ def test_eq_ne_fail():
 
 def test_rder():
     x.rder = None
-    assert(x.rder == None)
+    assert(x.rder is None)
     rder_val = x.revder()
 
     assert(rder_val != None)
