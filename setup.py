@@ -8,6 +8,7 @@
     Learn more under: https://pyscaffold.org/
 """
 import sys
+import versioneer
 
 from pkg_resources import VersionConflict, require
 from setuptools import setup
@@ -20,4 +21,4 @@ except VersionConflict:
 
 
 if __name__ == "__main__":
-    setup(use_pyscaffold=True)
+    setup(version=versioneer.get_version(), cmdclass=versioneer.get_cmdclass(), use_pyscaffold=True)

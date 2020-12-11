@@ -46,3 +46,11 @@ Version 0.0.6
  - Var object has neg operation and tests
  - update function docs to match sphinx
  - begun documenting Var object
+
+Version 0.1.0
+==============
+
+ - Working implementation
+ - TestPyPi integration
+ - Versioneer versioning
+ - Documentation updated

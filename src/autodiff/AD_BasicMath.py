@@ -1,5 +1,5 @@
 import numpy as np
-from src.autodiff.AD_Object import Var
+from .AD_Object import Var
 
 # Returning a new Var for each elementary function
 # exponential
@@ -14,16 +14,16 @@ def exp(x):
     :rtype: AD_Object.Var
     
     :example:
-    >>> from src.autodiff.AD_BasicMath import exp
-    >>> from src.autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import exp
+    >>> from autodiff.AD_Object import Var
     >>> exp(Var(0))
     Var(val=1.0, der=1.0)
     """
     newX = Var(np.exp(x.val), derivative=x.der*(np.exp(x.val)))
     return newX
   
-def log(x):
-    """Returns a new Var with log_10 appled to input Var x
+def log(x, base=10):
+    """Returns a new Var with log_base appled to input Var x, default base is 10
     
     :param x: object on which log is applied, required
     :type x: AD_Object.Var
@@ -34,14 +34,16 @@ def log(x):
     
     :examples:
     >>> import numpy as np
-    >>> from src.autodiff.AD_Object import Var
-    >>> from src.autodiff.AD_BasicMath import log
-    >>> log(Var(10, derivative=np.log(10)))
-    Var(val=1, der=1)
+    >>> from autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import log
+    >>> log(Var(1, derivative=np.log(10)))
+    Var(val=0.0, der=0.9999999999999999)
+    >>> log(Var(1), 2)
+    Var(val=0.0, der=1/np.log(2))
     """
     if (x.val < 0):
         raise ValueError("Log undefined at negative values")    
-    newX = Var(np.log10(x.val), derivative=1/(x.val*np.log(10))*x.der)
+    newX = Var(np.log(x.val)/np.log(base), derivative=1/(x.val*np.log(base))*x.der)
     return newX
 
 def ln(x):
@@ -54,10 +56,10 @@ def ln(x):
     
     :examples:
     >>> import numpy as np
-    >>> from src.autodiff.AD_Object import Var
-    >>> from src.autodiff.AD_BasicMath import ln
+    >>> from autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import ln
     >>> ln(Var(np.e, derivative=np.e))
-    Var(val=1, der=1)
+    Var(val=1.0, der=1.0)
     """
     if (x.val < 0):
         raise ValueError("Ln undefined at negative values")    
@@ -74,8 +76,8 @@ def sqrt(x):
     :rtype: AD_Object.Var
     
     :example:
-    >>> from src.autodiff.AD_BasicMath import sqrt
-    >>> from src.autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import sqrt
+    >>> from autodiff.AD_Object import Var
     >>> sqrt(Var(4))
     Var(val=2.0, der=0.25)
     """
@@ -96,8 +98,8 @@ def sin(x):
     :rtype: AD_Object.Var
     
     :example:
-    >>> from src.autodiff.AD_BasicMath import sin
-    >>> from src.autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import sin
+    >>> from autodiff.AD_Object import Var
     >>> sin(Var(0))
     Var(val=0.0, der=1.0)
     """
@@ -113,8 +115,8 @@ def cos(x):
     :rtype: AD_Object.Var
     
     :example:
-    >>> from src.autodiff.AD_BasicMath import cos
-    >>> from src.autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import cos
+    >>> from autodiff.AD_Object import Var
     >>> cos(Var(0))
     Var(val=1.0, der=-0.0)
     """
@@ -131,8 +133,8 @@ def tan(x):
     :rtype: AD_Object.Var
 
     :example:
-    >>> from src.autodiff.AD_BasicMath import tan
-    >>> from src.autodiff.AD_Object import Var
+    >>> from autodiff.AD_BasicMath import tan
+    >>> from autodiff.AD_Object import Var
     >>> tan(Var(0, derivative=1))
     Var(val=0.0, der=1.0)
     """

@@ -59,6 +59,7 @@ def test_ln():
        lnx = ln(x)
     except Exception as e:
         print(str(e) + 'ln val at 0 fail')
+    # assert(lnx.val == 0)
 
 def test_ln_undef():
     new = Var(-3)
@@ -69,10 +70,23 @@ def test_ln_undef():
 
 def test_log():
     try:
-       logx = log(x)
+       logx = log(Var(1))
     except Exception as e:
         print(str(e) + 'log val at 0 fail')
-
+    assert(logx.val == 0)
+    assert(logx.der == 1/np.log(10))
+    try:
+       logbase2 = log(Var(1), 2)
+    except Exception as e:
+        print(str(e) + 'log val at 0 fail')
+    assert(logbase2.val == 0)
+    assert(logbase2.der == 1/np.log(2))
+    try:
+       logbase3 = log(Var(3), 3)
+    except Exception as e:
+        print(str(e) + 'log val at 0 fail')
+    assert(logbase3.val == 1)
+    assert(logbase3.der == 1/(3*np.log(3)))
 def test_log_undef():
     new = Var(-3)
     try:
