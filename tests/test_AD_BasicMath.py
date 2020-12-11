@@ -112,8 +112,10 @@ def test_exp():
 
 
 def test_csc():
+    new = Var(np.pi/2)
     try:
-       cscx = csc(x)
+       cscnew = csc(new)
+       assert cscnew.val == 1
     except Exception as e:
         print(str(e))
 
@@ -138,8 +140,10 @@ def test_sec_undef():
         assert(isinstance(e, ValueError))
 
 def test_cot():
+    new = Var(np.pi/4)
     try:
-       cotx = cot(x)
+       cotx = cot(new)
+       assert cotx.val == 1
     except Exception as e:
         print(str(e))
 

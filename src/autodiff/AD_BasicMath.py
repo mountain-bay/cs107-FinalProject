@@ -157,7 +157,7 @@ def csc(x):
     """
     if (x.val == 0) or (x.val % (np.pi) == 0):
         raise ValueError("Cosecant undefined at 0 and multiples of pi")
-    newX = Var(1/np.sin(x.val), derivative=-1/np.tan(x.val))*(1/np.sin(x.val))*x.der
+    newX = Var(1/np.sin(x.val), derivative=-1/np.tan(x.val)*(1/np.sin(x.val))*x.der)
     return newX
 
 def sec(x):
