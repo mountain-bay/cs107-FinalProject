@@ -122,6 +122,8 @@ z = AD.sin(y)**AD.cos(x)
 
 You can get the value and derivative of various functions at any given point using these methods
 
+For more info on the submodules and the specific functions, visit our [ReadtheDocs](https://cs107-finalproject.readthedocs.io/en/latest/)
+
 ## Organization
 
 The directory structure for our project is as follows, illustrated in tree format. Note that our modules are stored within src/ad-project/ folder. We also anticipate storing documentation, examples, and our test suite in the appropriate folders, indicated by their names. Other than that, there are also the standard files we see in this type of repository: a README file, a license file, and a requirements file.
@@ -168,17 +170,15 @@ We used the framework PyScaffold, because it sets up a folder system for us and 
 
 ## Implementation
 
-The core data structures we anticipate used are vectors (ex. seed vector), lists, tuples, and/or dictionaries for storing information. The class AD_Object will creates our Auto Differentiation Object and has all operation overload for basic functions such as addition, subtraction, multiplication, division, and power. The class AD_Num contains elementary operations such as trigonometric functions, exponential functions, and more.
+The core data structures we used are vectors (ex. seed vector), lists, tuples, and/or dictionaries for storing information. The class AD_Object creates our Auto Differentiation Object and has all operation overload for basic functions such as addition, subtraction, multiplication, division, and power. The module AD_BasicMath contains elementary operations such as trigonometric functions, exponential functions, and more.
 
-For external dependencies, used numpy because of its mathematical capabilities and pandas, since it has an easy to use interface and fast data structures.
+For external dependencies, used numpy because of its mathematical capabilities.
 
 ## Our extension: Reverse Mode
 
 The reverse mode is composed of two steps: a forward pass and a reverse pass. The forward pass evaluates the elementary functions and stores the partial derivative, but does not do the chain rule. The reverse pass begin with evaluating Vbar = (df/dVn) = 1, because f = Vn. It then works backwards to evaluate the derivatives, adding values when a node has multiple children (implementing the chain rule). Note: while the forward mode calculates the Jacobian-vector product, the reverse mode actually calculates the Jacobian transpose-product. 
 
 We implemented Reverse mode by constructing a graph of nodes that represent our original expression as the program runs. This means an input x and/or y is the root of such a graph, and we think of Var as a node that is capable of having children. Whenever a new expression is built out of current nodes, that new expression would be a child of each of those current nodes. This also save contributing weights for gradient computation later on. In our ADObject module, we therefore extended our code by first initializing with an empty list, self.children, and reverse derivative/gradient value set equal to None, self.rder. For reverse mode, we are appending each new node as the child of the inputs that was saved into a list. We then propagate derivatives using recursion, using a function we have called "revder" within our ADObject module.
-
-## Our extension: Vector Input
 
 ## Broader Impact
 
@@ -187,8 +187,3 @@ We implemented Reverse mode by constructing a graph of nodes that represent our 
 ## Software Inclusivity
 
   In general, we are aware our software must inevitably be flawed in its inclusivity, not because of purposeful design, but rather because of the broader world we are situated in. One of the common approaches to improve inclusivity is to increase representation within tech. While this is a worthwhile goal, it is also a temporary fix, and also one that is not effective if women, non-native English speakers, LGBTQ+ folks, working parents, and/or people of color’s voices and critiques are not respected and amplified. The recent firing of well-known AI ethicist and Black woman Timnit Gebru for speaking up about the possible misuses of Natural Language Processing models  at Google illustrates this. Within our own group, varied in our identities and marginalization, we approached inclusivity by dividing tasks equally and having different team members provide feedback and approval for Pull Requests.
-
-
-## Future Features
-
-
