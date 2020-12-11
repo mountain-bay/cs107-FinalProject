@@ -147,17 +147,20 @@ class Var:
             # applying exp rule
             # i.e. a^b = e^(b*log(a)) => a^b*((a'*b)/a + b'*log(a))
             if self.val == 0:
-                raise ValueError("Derivative at 0 not found")
+                new_der = other.val * (self.val ** (other.val - 1)) * self.der + (
+                    self.val ** other.val
+                )
             else:
-                new_der = new_val * (
-                    ((self.der * other.val) / self.val) + other.der * np.log(self.val)
+                new_der = (
+                    other.val * (self.val ** (other.val - 1)) * self.der
+                    + (self.val ** other.val) * np.log(np.abs(self.val)) * other.der
                 )
         except AttributeError:
             if isinstance(other, int) or isinstance(other, float):
-                new_val = self.val ** other
-                new_der = other * (self.val ** (other - 1))
+                return self.__pow__(Var(other, derivative=0))
             else:
                 raise ValueError("Please use a numtype or Var type for the power")
+
         return Var(new_val, derivative=new_der)
 
     def __rpow__(self, other):
