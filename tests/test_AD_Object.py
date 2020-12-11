@@ -219,16 +219,6 @@ def test_rpow_num():
 
 
 def test_pow_fail():
-    # 0^x der fail
-    try:
-        x**y
-    except ValueError:
-        pass
-    except Exception as e:
-        raise AssertionError(f"bad der exception {e}")
-    else:
-        raise AssertionError("bad der fail")
-
     # Type checking
     try:
         y**('hello')
