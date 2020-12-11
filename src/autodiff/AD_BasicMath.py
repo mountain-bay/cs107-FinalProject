@@ -313,3 +313,57 @@ def sigmoid(x):
     newX = Var(sigmoid_val, derivative=sigmoid_der)
     x.children.append(( sigmoid_val * (1 - sigmoid_val) , newX ))
     return newX
+
+
+def sinh(x):
+    """Returns a new Var with hyperbolic sine applied to the input Var x
+
+    :param x: object on which hyperbolic sine is applied, required
+    :type x: AD_Object.Var
+    :return: new object with hyperbolic sine applied to input
+    :rtype: AD_Object.Var
+
+    :example:
+    >>> from src.autodiff.AD_BasicMath import sinh
+    >>> from src.autodiff.AD_Object import Var
+    >>> sinh(Var(0))
+    Var(val=0, der=1.0)
+    """
+    newX = Var(np.sinh(x.val), derivative = np.cosh(x.val)*x.der)
+    return newX
+
+
+def cosh(x):
+    """Returns a new Var with hyperbolic cosine applied to the input Var x
+
+    :param x: object on which hyperbolic cosine is applied, required
+    :type x: AD_Object.Var
+    :return: new object with hyperbolic cosine applied to input
+    :rtype: AD_Object.Var
+
+    :example:
+    >>> from src.autodiff.AD_BasicMath import cosh
+    >>> from src.autodiff.AD_Object import Var
+    >>> cosh(Var(0))
+    Var(val=1.0, der=0)
+    """
+    newX = Var(np.cosh(x.val), derivative = np.sinh(x.val)*x.der)
+    return newX
+
+def tanh(x):
+    """Returns a new Var with hyperbolic tangent applied to the input Var x
+
+    :param x: object on which hyperbolic tangent is applied, required
+    :type x: AD_Object.Var
+    :return: new object with hyperbolic tangent applied to input
+    :rtype: AD_Object.Var
+
+    :example:
+    >>> from src.autodiff.AD_BasicMath import tanh
+    >>> from src.autodiff.AD_Object import Var
+    >>> tanh(Var(0))
+    Var(val=0, der=1.0)
+    """
+    newX = Var(np.tanh(x.val), derivative = 1/(np.cosh(x.val)**2)*x.der)
+    return newX
+
