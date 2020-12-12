@@ -21,12 +21,12 @@ class Var:
     Var(val=4, der=6)
 
     :example reverse mode:
-    >>> x = Var(0.5)
-    >>> y = Var(4.2)
+    >>> x = Var(0.8)
+    >>> y = Var(2.0)
     >>> a = x * y
     >>> a.rder = 1.0
     >>> print("∂a/∂x = {}".format(x.revder()))
-    ∂a/∂x = 4.2
+    ∂a/∂x = 2.0
 
     """
 

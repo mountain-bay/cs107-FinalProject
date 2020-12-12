@@ -330,6 +330,7 @@ def sinh(x):
     Var(val=0, der=1.0)
     """
     newX = Var(np.sinh(x.val), derivative = np.cosh(x.val)*x.der)
+    x.children.append((np.cosh(x.val), newX))
     return newX
 
 
@@ -348,6 +349,7 @@ def cosh(x):
     Var(val=1.0, der=0)
     """
     newX = Var(np.cosh(x.val), derivative = np.sinh(x.val)*x.der)
+    x.children.append((np.sinh(x.val), newX))
     return newX
 
 def tanh(x):
@@ -365,5 +367,6 @@ def tanh(x):
     Var(val=0, der=1.0)
     """
     newX = Var(np.tanh(x.val), derivative = 1/(np.cosh(x.val)**2)*x.der)
+    x.children.append((1/(np.cosh(x.val)**2), newX))
     return newX
 
