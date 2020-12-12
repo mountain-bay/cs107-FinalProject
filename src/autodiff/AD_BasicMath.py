@@ -69,7 +69,7 @@ def ln(x):
     >>> ln(Var(np.e, derivative=np.e))
     Var(val=1.0, der=1.0)
     """
-    if x.val < 0:
+    if x.val <= 0:
         raise ValueError("Ln undefined at negative values")
     newX = Var(np.log(x.val), derivative=1 / (x.val) * x.der)
     x.children.append((1/(x.val), newX))

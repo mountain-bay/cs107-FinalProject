@@ -30,7 +30,7 @@ def test_y_Var_init():
 
 def test_repr():
     assert repr(x) == "Var(val=0, der=1)"
-    assert repr(y) == "Var(val=1, der=1.0)"
+    assert repr(y) == "Var(val=1, der=1)"
 
 
 def test_add():
@@ -202,7 +202,7 @@ def test_pow_num():
     assert pow0.val == 1, AssertionError("2**0 val fail")
     assert pow0.der == 0, AssertionError("2**0 der fail")
     assert x0.val == 0, AssertionError("0**1 val fail")
-    assert x0.der == 1, AssertionError("0**1 der fail")
+    assert x0.der == 0, AssertionError("0**1 der fail")
 
 
 def test_pow_var():

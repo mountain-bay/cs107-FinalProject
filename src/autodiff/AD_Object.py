@@ -112,6 +112,8 @@ class Var:
 
     def __truediv__(self, other):  # no div in Python, truediv
         try:
+            if other.val == 0:
+                raise ValueError("cannot divide by 0")
             z = Var(
                 (self.val / other.val),
                 derivative=(
@@ -150,21 +152,19 @@ class Var:
         try:
             # applying exp rule
             # i.e. a^b = e^(b*log(a)) => a^b*((a'*b)/a + b'*log(a))
+            if self.val == 0 and other.val <= 0:
+                raise ValueError(f"Cannot get derivative of 0 raised to {other.val}")
+
             new_val = self.val ** other.val
             if self.val == 0:
-                if  other.val <= 0:
-                    raise ValueError(f"Cannot get derivative of 0 raised to {other.val}")
                 new_der = other.val * (self.val ** (other.val - 1)) * self.der + (
                     self.val ** other.val
                 )
             else:
-                if  other.val <= 0:
-                    new_der = 0
-                else:
-                    new_der = (
-                        other.val * (self.val ** (other.val - 1)) * self.der
-                        + (self.val ** other.val) * np.log(np.abs(self.val)) * other.der
-                    )
+                new_der = (
+                    other.val * (self.val ** (other.val - 1)) * self.der
+                    + (self.val ** other.val) * np.log(np.abs(self.val)) * other.der
+                )
 
         except AttributeError:
             raise ValueError("Please use a numtype or Var type for the power")

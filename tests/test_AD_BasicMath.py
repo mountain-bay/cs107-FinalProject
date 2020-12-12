@@ -78,22 +78,13 @@ def test_ln_undef():
 
 
 def test_log():
-    try:
-        logx = log(Var(1))
-    except Exception as e:
-        print(str(e) + "log val at 0 fail")
+    logx = log(Var(1))
     assert logx.val == 0
     assert logx.der == 1 / np.log(10)
-    try:
-        logbase2 = log(Var(1), 2)
-    except Exception as e:
-        print(str(e) + "log val at 0 fail")
+    logbase2 = log(Var(1), 2)
     assert logbase2.val == 0
     assert logbase2.der == 1 / np.log(2)
-    try:
-        logbase3 = log(Var(3), 3)
-    except Exception as e:
-        print(str(e) + "log val at 0 fail")
+    logbase3 = log(Var(3), 3)
     assert logbase3.val == 1
     assert logbase3.der == 1 / (3 * np.log(3))
 
@@ -111,8 +102,6 @@ def test_sqrt():
     square_der = Var(4, derivative=16)
     newsq = sqrt(square)
     newsqder = sqrt(square_der)
-    # assert sqrt(x).val == 0, AssertionError("Sqrt 0 val fail")
-    # assert sqrt(x).der == 1, AssertionError("Sqrt 1 der fail")
     assert newsq.val == 4, AssertionError("Sqrt square val fail")
     assert newsq.der == 0.125, AssertionError("Sqrt square der fail")
     assert newsqder.val == 2, AssertionError("Sqrt square_der val fail")
