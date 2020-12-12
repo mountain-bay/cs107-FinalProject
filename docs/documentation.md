@@ -120,8 +120,16 @@ z = AD.sin(y)**AD.cos(x)
 # We get new Var objects with updated values and derivatives from x = 5
 ```
 
-You can get the value and derivative of various functions at any given point using these methods.
+You can get the value and derivative of various functions at any given point using these methods. You can also get the derivative using reverse mode:
 
+```
+x = Var(0.8) # Creating Var object
+y = Var(2.0)
+a = x * y    # Multiplying x and y, we get a, the child of x and y
+a.rder = 1.0 # 
+print("∂a/∂x = {}".format(x.revder())) # Using function revder
+∂a/∂x = 2.0 # We get the derivative
+```
 
 For more info on the submodules and the specific functions, visit our [ReadtheDocs](https://cs107-finalproject.readthedocs.io/en/latest/)
 
