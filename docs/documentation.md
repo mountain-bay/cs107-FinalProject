@@ -120,7 +120,8 @@ z = AD.sin(y)**AD.cos(x)
 # We get new Var objects with updated values and derivatives from x = 5
 ```
 
-You can get the value and derivative of various functions at any given point using these methods
+You can get the value and derivative of various functions at any given point using these methods.
+
 
 ## Organization
 
@@ -186,9 +187,18 @@ We implemented Reverse mode by constructing a graph of nodes that represent our 
   
 ## Software Inclusivity
 
-  In general, we are aware our software must inevitably be flawed in its inclusivity, not because of purposeful design, but rather because of the broader world we are situated in. One of the common approaches to improve inclusivity is to increase representation within tech. While this is a worthwhile goal, it is also a temporary fix, and also one that is not effective if women, non-native English speakers, LGBTQ+ folks, working parents, and/or people of color’s voices and critiques are not respected and amplified. The recent firing of well-known AI ethicist and Black woman Timnit Gebru for speaking up about the possible misuses of Natural Language Processing models  at Google illustrates this. Within our own group, varied in our identities and marginalization, we approached inclusivity by dividing tasks equally and having different team members provide feedback and approval for Pull Requests.
+  In general, we are aware our software must inevitably be flawed in its inclusivity, not because of purposeful design, but rather because of the broader world we are situated in. One of the common approaches to improve inclusivity is to increase representation within tech. While this is a worthwhile goal, it is also a temporary fix, and also one that is not effective if women, non-native English speakers, LGBTQ+ folks, working parents, and/or people of color’s voices and critiques are not respected and amplified. The recent firing of well-known AI ethicist and Black woman Timnit Gebru for speaking up about the possible misuses of Natural Language Processing models at Google illustrates this. Within our own group, varied in our identities and marginalization, we approached inclusivity by dividing tasks equally and having different team members provide feedback and approval for Pull Requests.
 
 
 ## Future Features
+  A future feature and applied use of this program is for finding the extrema of an optimization problem. Optimization consists of selecting a "best element" from a set of alternatives. In the simplest case, this consists of maximizing or minimizing a function. 
+  
+  ### Gradient Descent/Ascent
+  One method to find the min/max uses the gradient descent/ascent. Using the reverse mode of our program, you can get the gradient vector of a function at the specified point. Using the gradient we can then extend the program to do gradient descent/ascent to find a local minimum/maximum respectively. This extension would work in the following way. Given a function, an initial position, and the type of extrema desired (either min or max) the program would calculate the gradient at that point and then take a small step in either the negative or positive direction of the gradient (for finding minima or maxima respectively). It would repeat this process until the gradient is zero, meaning an extrema has been reached. If the step size is too big, we might expect the program to oscilate around an extreme point. Thus the implementation would optimally decrease the step size nearer to the extrema. Additionally, some threshold around gradient = 0 would be specified in detecting whether the point of extrema has been reached. 
+
+  If a function has a bounded domain, the global extrema could be calculated by repeating the gradient descent/ascent algorithm over a sample space of the bounded domain with appropriately small step size, and then comparing the value of the function evaluatetd at every point of extrema. 
+
+  ### Future Classes and Implementation
+  In order to implement the gradient descent using our program, we would create a new class AD_GradExtrema(), which would take the function, an intial position, and a specificiation for min or max as inputs. Then, using the process outlined above, it would calculate a list of local max/min and return the greatest/smallest value in the list to find the global max/min. This returned value represents the best value for the optimization. 
 
 
